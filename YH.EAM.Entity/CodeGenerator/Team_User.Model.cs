@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Text;
-namespace YH.EAM.Entity.Model
+namespace YH.EAM.Entity.CodeGenerator
 {
     /// <summary>
     ///  用户表

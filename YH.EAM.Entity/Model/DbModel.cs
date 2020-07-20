@@ -6,11 +6,7 @@ namespace YH.EAM.Entity.Model
 {
     public class DbModel
     {
-
-
-
-        public class Rootobject
-        {
+        
             /// <summary>
             /// 使用数据库
             /// </summary>
@@ -30,8 +26,6 @@ namespace YH.EAM.Entity.Model
             /// 开发环境
             /// </summary>
             public string DevelopDatabase { get; set; }
-        }
-
 
 
     }

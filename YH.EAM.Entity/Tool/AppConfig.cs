@@ -8,15 +8,28 @@ namespace YH.EAM.Entity.Tool
     {
 
 
-        public  String ConnectionString { get {
+        public static string ConnectionString() {
+            Victory.Core.Helpers.ConfigHelper configHelper = new Victory.Core.Helpers.ConfigHelper("appsettings.json");
 
+            var dbmodel = configHelper.Get<Model.DbModel>("ConnectionStrings");
 
-                Victory.Core.Helpers.ConfigHelper configHelper = new Victory.Core.Helpers.ConfigHelper();
+            if (dbmodel.DB== "ProductDatabase")
+            {
+                return dbmodel.ProductDatabase;
+            }
 
-                
+            if (dbmodel.DB == "EnvironDatabase")
+            {
+                return dbmodel.EnvironDatabase;
+            }
 
+            if (dbmodel.DB == "DevelopDatabase")
+            {
+                return dbmodel.DevelopDatabase;
+            }
 
-            } }
+            return dbmodel.DevelopDatabase;
+        }
 
 
     }

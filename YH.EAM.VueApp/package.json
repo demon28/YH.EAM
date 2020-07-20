@@ -12,7 +12,6 @@
     "name": ""
   },
   "dependencies": {
-    "og": "0.0.2",
     "vue": "2.5.17"
   },
   "devDependencies": {
