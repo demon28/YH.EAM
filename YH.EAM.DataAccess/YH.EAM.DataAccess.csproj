@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FreeSql" Version="1.6.0" />
+    <PackageReference Include="FreeSql.Provider.SqlServer" Version="1.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\YH.EAM.Entity\YH.EAM.Entity.csproj" />
   </ItemGroup>
 

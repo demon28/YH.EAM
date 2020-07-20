@@ -2,7 +2,12 @@
 
 namespace YH.EAM.DataAccess
 {
-    public class Class1
+    public class DBContext
     {
+
+        
+
+
+
     }
 }
