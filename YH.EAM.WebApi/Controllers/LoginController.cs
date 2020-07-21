@@ -44,7 +44,7 @@ namespace YH.EAM.WebApi.Controllers
                     new Claim(JwtRegisteredClaimNames.Nbf,$"{new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds()}") ,
                     new Claim (JwtRegisteredClaimNames.Exp,$"{new DateTimeOffset(DateTime.Now.AddMinutes(300)).ToUnixTimeSeconds()}"),
                     new Claim("userId",userModel.Id.ToString()),
-                    new Claim(ClaimTypes.Name, userModel.Name),
+                    new Claim("userName", userModel.Name),
                     new Claim("workId", userModel.Workid),
 
                 };
@@ -61,8 +61,6 @@ namespace YH.EAM.WebApi.Controllers
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
-
-            //return Json(new { Success = true, Code = 1, Token = jwt });
 
             return SuccessResult(jwt, "登录成功！");
         }
