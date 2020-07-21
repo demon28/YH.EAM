@@ -12,12 +12,14 @@
     "name": ""
   },
   "dependencies": {
+    "js-md5": "^0.7.3",
     "vue": "2.5.17"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "3.0.4",
     "@vue/cli-plugin-eslint": "3.0.4",
     "@vue/cli-service": "3.0.4",
+    "axios": "^0.19.2",
     "eslint": "5.6.0",
     "eslint-plugin-vue": "4.7.1",
     "vue-template-compiler": "2.5.17"

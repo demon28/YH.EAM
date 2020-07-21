@@ -21,7 +21,7 @@ namespace YH.EAM.DataAccess
         /// <returns></returns>
         public async virtual Task<long> CountAsync()
         {
-            var runsql = DbContext.Db().Select<T>();
+            var runsql = DBContext.Db().Select<T>();
             return await runsql.CountAsync();
         }
 
@@ -32,7 +32,7 @@ namespace YH.EAM.DataAccess
         /// <returns></returns>
         public async virtual Task<long> InsertAsync(T model)
         {
-            var runsql = DbContext.Db().Insert<T>(model);
+            var runsql = DBContext.Db().Insert<T>(model);
             return await runsql.ExecuteIdentityAsync();
         }
 
@@ -43,7 +43,7 @@ namespace YH.EAM.DataAccess
         /// <returns></returns>
         public async virtual Task<int> BatchInsertAsync(List<T> models)
         {
-            var runsql = DbContext.Db().Insert<T>().AppendData(models);
+            var runsql = DBContext.Db().Insert<T>().AppendData(models);
             return await runsql.ExecuteAffrowsAsync();
         }
 
@@ -54,7 +54,7 @@ namespace YH.EAM.DataAccess
         /// <returns></returns>
         public async virtual Task<bool> UpdateAsync(T model)
         {
-            var runsql = DbContext.Db().Update<T>().SetSource(model);
+            var runsql = DBContext.Db().Update<T>().SetSource(model);
             var rows = await runsql.ExecuteAffrowsAsync();
             return rows > 0;
         }
@@ -66,7 +66,7 @@ namespace YH.EAM.DataAccess
         /// <returns></returns>
         public async virtual Task<bool> DeleteAsync(long id)
         {
-            var result = await DbContext.Db().Delete<T>(id).ExecuteAffrowsAsync();
+            var result = await DBContext.Db().Delete<T>(id).ExecuteAffrowsAsync();
             return result > 0;
         }
 
@@ -77,7 +77,7 @@ namespace YH.EAM.DataAccess
         /// <returns></returns>
         public virtual bool Delete(Expression<Func<T, bool>> where)
         {
-            var result =  DbContext.Db().Delete<T>().Where(where).ExecuteAffrows();
+            var result =  DBContext.Db().Delete<T>().Where(where).ExecuteAffrows();
             return result > 0;
         }
 
@@ -88,7 +88,7 @@ namespace YH.EAM.DataAccess
         /// <returns></returns>
         public async virtual Task<bool> DeleteAsync(Expression<Func<T, bool>> where)
         {
-            var result = await  DbContext.Db().Delete<T>().Where(where).ExecuteAffrowsAsync();
+            var result = await  DBContext.Db().Delete<T>().Where(where).ExecuteAffrowsAsync();
             return result > 0;
         }
 
@@ -99,7 +99,7 @@ namespace YH.EAM.DataAccess
         /// <returns></returns>
         public async virtual Task<T> GetByOneAsync(Expression<Func<T, bool>> where)
         {
-            return await  DbContext.Db().Select<T>()
+            return await  DBContext.Db().Select<T>()
                 .Where(where).ToOneAsync();
         }
 
@@ -112,7 +112,7 @@ namespace YH.EAM.DataAccess
         public async virtual Task<(List<T> list, PageModel page)> QueryAsync(Expression<Func<T, bool>> where, PageModel p=null, List<SortInfo<T, object>> orderbys = null)
         {
             long count;
-            var list = DbContext.Db().Select<T>().Where(where).Count(out count);
+            var list = DBContext.Db().Select<T>().Where(where).Count(out count);
 
             if (p!=null)
             {
@@ -146,7 +146,7 @@ namespace YH.EAM.DataAccess
         /// <returns></returns>
         public virtual long Count()
         {
-            var runsql =  DbContext.Db().Select<T>();
+            var runsql =  DBContext.Db().Select<T>();
             return runsql.Count();
         }
 
@@ -157,7 +157,7 @@ namespace YH.EAM.DataAccess
         /// <returns></returns>
         public virtual long Insert(T model)
         {
-            var runsql =  DbContext.Db().Insert<T>(model);
+            var runsql =  DBContext.Db().Insert<T>(model);
             return runsql.ExecuteIdentity();
         }
 
@@ -168,7 +168,7 @@ namespace YH.EAM.DataAccess
         /// <returns></returns>
         public virtual int BatchInsert(List<T> models)
         {
-            var runsql =  DbContext.Db().Insert<T>().AppendData(models);
+            var runsql =  DBContext.Db().Insert<T>().AppendData(models);
             return runsql.ExecuteAffrows();
         }
 
@@ -179,7 +179,7 @@ namespace YH.EAM.DataAccess
         /// <returns></returns>
         public virtual bool Update(T model)
         {
-            var runsql =  DbContext.Db().Update<T>().SetSource(model);
+            var runsql =  DBContext.Db().Update<T>().SetSource(model);
             var rows = runsql.ExecuteAffrows();
             return rows > 0;
         }
@@ -191,7 +191,7 @@ namespace YH.EAM.DataAccess
         /// <returns></returns>
         public virtual bool Delete(long id)
         {
-            var result =  DbContext.Db().Delete<T>(id).ExecuteAffrows();
+            var result =  DBContext.Db().Delete<T>(id).ExecuteAffrows();
             return result > 0;
         }
 
@@ -202,7 +202,7 @@ namespace YH.EAM.DataAccess
         /// <returns></returns>
         public virtual T GetByOne(Expression<Func<T, bool>> where)
         {
-            return  DbContext.Db().Select<T>()
+            return  DBContext.Db().Select<T>()
                 .Where(where).ToOne();
         }
 
@@ -215,7 +215,7 @@ namespace YH.EAM.DataAccess
         public virtual (List<T> list, PageModel page) Query(Expression<Func<T, bool>> where, PageModel p = null, List<SortInfo<T, object>> orderbys = null)
         {
             long count;
-            var list = DbContext.Db().Select<T>().Where(where).Count(out count);
+            var list = DBContext.Db().Select<T>().Where(where).Count(out count);
 
             if (p != null)
             {

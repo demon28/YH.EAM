@@ -6,10 +6,17 @@
 </template>
 
 <script>
+    import md5 from "js-md5/src/md5"
+
     export default {
         name: 'Home',
         props: {
             msg: String
+        },
+        created: {
+
+            var o = "231";
+
         }
     };
 </script>
