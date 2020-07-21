@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>YH.EAM.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:YH.EAM.WebApi.Attribute.WebApiAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            Webapi过滤器
+            </summary>
+            <param name="Context"></param>
+        </member>
+        <member name="M:YH.EAM.WebApi.Attribute.WebApiAttribute.GetHeaderValue(Microsoft.AspNetCore.Http.HttpRequest,System.String)">
+            <summary>
+            获取指定key的Header值
+            </summary>
+            <param name="httpRequest">HttpRequest对象</param>
+            <param name="key">要获取Headers的名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:YH.EAM.WebApi.Attribute.WebApiAttribute.GetBodyValueAsync(Microsoft.AspNetCore.Http.HttpRequest,System.Text.Encoding)">
+            <summary>
+            获取Request的Body值
+            <para>获取Body值后再重新设置Body</para>
+            </summary>
+            <param name="httpRequest">HttpRequest对象</param>
+            <param name="encoding">默认编码为UTF8</param>
+            <returns></returns>
+        </member>
+        <member name="T:YH.EAM.WebApi.Controllers.LoginController">
+            <summary>
+            登录接口
+            </summary>
+        </member>
+        <member name="M:YH.EAM.WebApi.Controllers.LoginController.LoginByWorkId(System.String,System.String)">
+            <summary>
+            工号登录
+            </summary>
+            <param name="workid">工号</param>
+            <param name="pwd">密码（需要客户端md5加密）</param>
+            <returns>用户对象</returns>
+        </member>
+        <member name="T:YH.EAM.WebApi.Controllers.WeatherForecastController">
+            <summary>
+            天气预报
+            </summary>
+        </member>
+        <member name="M:YH.EAM.WebApi.Controllers.WeatherForecastController.#ctor(Microsoft.Extensions.Logging.ILogger{YH.EAM.WebApi.Controllers.WeatherForecastController})">
+            <summary>
+            构造方法
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:YH.EAM.WebApi.Controllers.WeatherForecastController.Get">
+            <summary>
+            获取天气预报
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:YH.EAM.WebApi.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:YH.EAM.WebApi.Startup.Configuration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:YH.EAM.WebApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:YH.EAM.WebApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>

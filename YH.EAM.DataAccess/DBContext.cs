@@ -26,7 +26,7 @@ namespace YH.EAM.DataAccess
             {
                 var freesql = new FreeSql.FreeSqlBuilder()
                      .UseConnectionString(enum_dbtype, AppConfig.ConnectionString())
-                     .UseAutoSyncStructure(true)
+                     .UseAutoSyncStructure(false)   //是否根据实体修改数据库， Code-First
                      .UseMonitorCommand(
                         cmd =>
                         {

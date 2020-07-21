@@ -1,28 +1,33 @@
+using FreeSql.DataAnnotations;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+
 namespace YH.EAM.Entity.CodeGenerator
 {
     /// <summary>
-    ///  用户表
+    ///  
     ///</summary>
-    public class   Team_user
+    public class   Team_User
     {
 
-       public Team_user()
+       public Team_User()
        {
       
        }
+
         ///<summary>
-        ///描述：用户id
+        ///描述：主键
         ///</summary>
-        public int User_Id { get; set; }
+        [Column(IsIdentity = true, IsPrimary = true)]
+        public int Id { get; set; }
         ///<summary>
-        ///描述：用户名
+        ///描述：姓名
         ///</summary>
         public string Name { get; set; }
         ///<summary>
-        ///描述：用户密码
+        ///描述：密码
         ///</summary>
         public string Pwd { get; set; }
         ///<summary>
@@ -34,15 +39,43 @@ namespace YH.EAM.Entity.CodeGenerator
         ///</summary>
         public string Phone { get; set; }
         ///<summary>
-        ///描述：用户状态
+        ///描述：状态默认为0
         ///</summary>
         public int Status { get; set; }
+        ///<summary>
+        ///描述：性别0：男 1，女
+        ///</summary>
+        public int Sex { get; set; }
+        ///<summary>
+        ///描述：一级部门
+        ///</summary>
+        public string Dep1 { get; set; }
+        ///<summary>
+        ///描述：二级部门
+        ///</summary>
+        public string Dep2 { get; set; }
+        ///<summary>
+        ///描述：三级部门
+        ///</summary>
+        public string Dep3 { get; set; }
+        ///<summary>
+        ///描述：四级部门
+        ///</summary>
+        public string Dep4 { get; set; }
+        ///<summary>
+        ///描述：五级部门
+        ///</summary>
+        public string Dep5 { get; set; }
+        ///<summary>
+        ///描述：职位
+        ///</summary>
+        public string Dtname { get; set; }
         ///<summary>
         ///描述：创建时间
         ///</summary>
         public DateTime Createtime { get; set; }
         ///<summary>
-        ///描述：备注
+        ///描述：
         ///</summary>
         public string Remarks { get; set; }
 
