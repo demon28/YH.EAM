@@ -1430,10 +1430,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\UserRight\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\YH.EAM.DataAccess\YH.EAM.DataAccess.csproj" />
     <ProjectReference Include="..\YH.EAM.Entity\YH.EAM.Entity.csproj" />
     <ProjectReference Include="..\YH.EAM.Facade\YH.EAM.Facade.csproj" />
