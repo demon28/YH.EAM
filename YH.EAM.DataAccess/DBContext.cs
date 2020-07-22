@@ -12,10 +12,13 @@ namespace YH.EAM.DataAccess
     {
         public static Dictionary<string, IFreeSql> ConnectionPool = new Dictionary<string, IFreeSql>();
 
-        public static IFreeSql Db()
+        public static IFreeSql Db
         {
-            DataType t = DataType.SqlServer;
-            return SelectDBType(t);
+            get
+            {
+                DataType t = DataType.SqlServer;
+                return SelectDBType(t);
+            }
         }
 
 

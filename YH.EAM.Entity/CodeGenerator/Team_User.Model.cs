@@ -79,8 +79,13 @@ namespace YH.EAM.Entity.CodeGenerator
         ///</summary>
         public string Remarks { get; set; }
 
+        ///<summary>
+        ///描述：入职时间
+        ///</summary>
+        public DateTime Comedate { get; set; }
+
     }
- }
+}
 
 
 

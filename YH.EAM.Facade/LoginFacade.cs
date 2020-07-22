@@ -10,14 +10,14 @@ namespace YH.EAM.Facade
 
             DataAccess.CodeGenerator.Team_User_Da da = new DataAccess.CodeGenerator.Team_User_Da();
 
-            if (da.GetByOne(s => s.Workid == workId) == null)
+            if (da.Where(s => s.Workid == workId).ToOne() == null)
             {
                 this.Message = "用户工号不存在";
                 
                 return false;
             }
 
-            user = da.GetByOne(s => s.Workid == workId && s.Pwd == pwd);
+            user = da.Where(s => s.Workid == workId && s.Pwd == pwd).ToOne();
 
             if (user==null)
             {

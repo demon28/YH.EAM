@@ -33,8 +33,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- Google Font -->
-    <link rel="stylesheet"  href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
+    <!-- jQuery 3 -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <!--Vue-->
+    <script src="~/lib/vue/vue.js"></script>
 
 
     @RenderSection("Htmlhead", false)
@@ -60,10 +65,10 @@ desired effect
 |---------------------------------------------------------|
 -->
 <body class="hold-transition skin-blue sidebar-mini">
-    <div class="wrapper"  id="app">
+    <div class="wrapper" >
 
         <!-- Main Header -->
-        <header class="main-header">
+        <header class="main-header" >
 
             <!-- Logo -->
             <a href="index2.html" class="logo">
@@ -73,8 +78,9 @@ desired effect
                 <span class="logo-lg"><b>EAM资产管理系统</b></span>
             </a>
 
+        
             <!-- Header Navbar -->
-            <nav class="navbar navbar-static-top" role="navigation">
+        <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                     <span class="sr-only">Toggle navigation</span>
@@ -101,27 +107,27 @@ desired effect
                                 </li>
                                 <!-- Menu Body -->
                                 @*
-                        <li class="user-body">
-                            <div class="row">
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Followers</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Sales</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Friends</a>
-                                </div>
-                            </div>
-                            <!-- /.row -->
-                        </li>
+                                    <li class="user-body">
+                                        <div class="row">
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Followers</a>
+                                            </div>
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Sales</a>
+                                            </div>
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Friends</a>
+                                            </div>
+                                        </div>
+                                        <!-- /.row -->
+                                    </li>
                                 *@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     @*
-                            <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
-                            </div>
+                                        <div class="pull-left">
+                                            <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        </div>
                                     *@
                                     <div class="pull-right">
                                         <a href="/Login/LoginOut" class="btn btn-default btn-flat">Sign out</a>
@@ -131,14 +137,14 @@ desired effect
                         </li>
                         <!-- Control Sidebar Toggle Button -->
                         @*  <li>
-                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                </li>*@
+                                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                            </li>*@
                     </ul>
                 </div>
             </nav>
         </header>
         <!-- Left side column. contains the logo and sidebar -->
-        <aside class="main-sidebar">
+        <aside class="main-sidebar" >
 
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
@@ -188,11 +194,11 @@ desired effect
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="/People/Index"><i class="fa fa-user"></i> 人员信息</a></li>
-                          
+
                         </ul>
                     </li>
 
-               
+
 
                     <li class=" treeview">
                         <a href="#">
@@ -250,7 +256,7 @@ desired effect
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                          
+
                             <li><a href="/UserRight/Role"><i class="fa  fa-user-plus"></i> 角色管理</a></li>
                             <li><a href="/UserRight/Func"><i class="fa fa-random"></i> 功能配置</a></li>
 
@@ -374,24 +380,23 @@ desired effect
         <!-- /.control-sidebar -->
         <!-- Add the sidebar's background. This div must be placed
         immediately after the control sidebar -->
-        <div class="control-sidebar-bg"></div>
+        <div class="control-sidebar-bg"  ></div>
     </div>
     <!-- ./wrapper -->
     <!-- REQUIRED JS SCRIPTS -->
-    <!-- jQuery 3 -->
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap 3.3.7 -->
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    
-    <!-- AdminLTE App -->
-    <script src="~/AdminLte/js/adminlte.js"></script>
 
-    <!--Vue-->
-    <script src="~/lib/vue/vue.js"></script>
 
     <!--axios-->
     <script src="~/lib/axios/axios.js"></script>
+
+    <!-- Bootstrap 3.3.7 -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+    <!-- AdminLTE App -->
+    <script src="~/AdminLte/js/adminlte.js"></script>
+
+
 
 
     <!--bootbox弹框-->
@@ -406,14 +411,17 @@ desired effect
     <!--帮助工具-->
     <script src="~/Script/Common.js"></script>
     <script src="~/Script/EnumHelper.js"></script>
-    <script src="~/Script/RequsetHelper.js"></script>
+
 
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
          Both of these plugins are recommended to enhance the
          user experience. -->
 
     <script>
-     
+
+
+
+
 
         var vm = new Vue({
 
@@ -422,7 +430,7 @@ desired effect
                 workId: "",
                 userName: "",
                 sex: 0,
-                image:""
+                image: ""
             },
             created() {
 
@@ -434,7 +442,7 @@ desired effect
             },
             methods: {
 
-                GetLoginUser(){
+                GetLoginUser() {
 
                     var _self = this;
 
@@ -457,7 +465,7 @@ desired effect
                         _self.sex = res.Content.sex;
                         _self.workId = res.Content.workId;
 
-                        if (_self.sex==0) {
+                        if (_self.sex == 0) {
                             _self.image = "/AdminLte/img/user2-160x160.jpg";
                         }
 
