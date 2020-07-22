@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YH.EAM.Entity", "YH.EAM.Ent
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YH.EAM.Facade", "YH.EAM.Facade\YH.EAM.Facade.csproj", "{0D3BDD57-DA4C-48CF-88B5-0E145142850F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YH.EAM.WebApp", "YH.EAM.WebApp\YH.EAM.WebApp.csproj", "{A280096F-BC89-403B-B186-82FEC7F6EB60}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0D3BDD57-DA4C-48CF-88B5-0E145142850F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D3BDD57-DA4C-48CF-88B5-0E145142850F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D3BDD57-DA4C-48CF-88B5-0E145142850F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A280096F-BC89-403B-B186-82FEC7F6EB60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A280096F-BC89-403B-B186-82FEC7F6EB60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A280096F-BC89-403B-B186-82FEC7F6EB60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A280096F-BC89-403B-B186-82FEC7F6EB60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

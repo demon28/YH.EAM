@@ -37,7 +37,9 @@ namespace YH.EAM.Entity.Tool
         }
 
 
-
+        /// <summary>
+        /// Jwt
+        /// </summary>
         public static JwtModel Jwt
         {
 
