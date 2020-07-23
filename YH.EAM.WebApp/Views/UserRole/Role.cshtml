@@ -55,7 +55,7 @@
                                 <td>{{item.Rolename}}</td>
 
                                 <td style="text-align:right">
-                                    <button type="button" class="btn bg-blue  btn-xs" v-on:click="ShowPower(item)">页面权限</button>
+                                    <button type="button" class="btn bg-blue  btn-xs" v-on:click="ShowPower(item)">权限配置</button>
                                     &nbsp;      &nbsp;
                                     <button type="button" class="btn bg-purple  btn-xs" v-on:click="ShowUpdate(item)">修改</button>
                                     &nbsp;      &nbsp;
@@ -107,18 +107,18 @@
                             <table class="table">
                         <tbody>
                             <tr>
-                             
-                                <th>功能名称</th>
 
-                         
-                           
+                                <th>访问权限</th>
+
+                                <th>操作权限</th> 
+
                             </tr>
 
                             <template v-for="(item,index) in powerlist" >
                                 <tr>
                                  
                                     <td>
-
+                                        <input type="checkbox" @@click="ChangePower(item)" v-model="item.checked" />
                                         {{item.Powername}}
                                     </td>
 
@@ -486,6 +486,13 @@
 
 
                                            console.log("分别打出来：Powerlist[i].Id===" + Powerlist[i].Id + "    RolePowerlist[j].Powerid===" + RolePowerlist[j].Powerid)
+
+                                           if (Powerlist[i].Id == RolePowerlist[j].Powerid) {
+
+                                               Powerlist[i].checked = true;
+                                               Powerlist[i].RPID = RolePowerlist[j].Id;  //自定义一个属性并赋值
+
+                                           }
 
 
 
