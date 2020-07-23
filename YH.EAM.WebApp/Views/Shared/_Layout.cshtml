@@ -38,8 +38,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- jQuery 3 -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
+    <!-- Bootstrap 3.3.7 -->
+    <script src="~/AdminLte/bower_components/bootstrap/js/bootstrap.js"></script>
+
+    <!-- AdminLTE App -->
+    <script src="~/AdminLte/js/adminlte.js"></script>
+
     <!--Vue-->
     <script src="~/lib/vue/vue.js"></script>
+
+    <!--分页-->
+    <link href="~/Script/zpage/zpageNav.css" rel="stylesheet" />
+    <script src="~/Script/zpage/zpageNav.js"></script>
+
 
 
     @RenderSection("Htmlhead", false)
@@ -65,10 +76,10 @@ desired effect
 |---------------------------------------------------------|
 -->
 <body class="hold-transition skin-blue sidebar-mini">
-    <div class="wrapper" >
+    <div class="wrapper">
 
         <!-- Main Header -->
-        <header class="main-header" >
+        <header class="main-header">
 
             <!-- Logo -->
             <a href="index2.html" class="logo">
@@ -78,9 +89,9 @@ desired effect
                 <span class="logo-lg"><b>EAM资产管理系统</b></span>
             </a>
 
-        
+
             <!-- Header Navbar -->
-        <nav class="navbar navbar-static-top" role="navigation">
+            <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                     <span class="sr-only">Toggle navigation</span>
@@ -92,16 +103,16 @@ desired effect
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img :src="image" class="user-image" alt="User Image" id="img_toplogo">
-                                <span class="hidden-xs" id="span_user">{{userName}} [{{workId}}]</span>
+                                <img class="user-image" alt="User Image" id="img_toplogo">
+                                <span id="span_user" class="username"></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img :src="image" class="img-circle" alt="User Image" id="img_rightlogo">
+                                    <img class="img-circle" alt="User Image" id="img_rightlogo">
 
                                     <p>
-                                        <span id="span_rights">{{userName}} [{{workId}}]</span>
+                                        <span id="span_rights" class="username"></span>
 
                                     </p>
                                 </li>
@@ -144,7 +155,7 @@ desired effect
             </nav>
         </header>
         <!-- Left side column. contains the logo and sidebar -->
-        <aside class="main-sidebar" >
+        <aside class="main-sidebar">
 
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
@@ -152,10 +163,10 @@ desired effect
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img :src="image" class="img-circle" alt="User Image">
+                        <img class="img-circle" alt="User Image" id="image_leftlogo">
                     </div>
                     <div class="pull-left info">
-                        <p>{{userName}} [{{workId}}]</p>
+                        <p class="username"></p>
                         <!-- Status -->
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
@@ -257,7 +268,7 @@ desired effect
                         </a>
                         <ul class="treeview-menu">
 
-                            <li><a href="/UserRight/Role"><i class="fa  fa-user-plus"></i> 角色管理</a></li>
+                            <li><a href="/UserRole/Role"><i class="fa  fa-user-plus"></i> 角色管理</a></li>
                             <li><a href="/UserRight/Func"><i class="fa fa-random"></i> 功能配置</a></li>
 
                         </ul>
@@ -380,23 +391,14 @@ desired effect
         <!-- /.control-sidebar -->
         <!-- Add the sidebar's background. This div must be placed
         immediately after the control sidebar -->
-        <div class="control-sidebar-bg"  ></div>
+        <div class="control-sidebar-bg"></div>
     </div>
     <!-- ./wrapper -->
     <!-- REQUIRED JS SCRIPTS -->
 
 
-
     <!--axios-->
     <script src="~/lib/axios/axios.js"></script>
-
-    <!-- Bootstrap 3.3.7 -->
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-
-    <!-- AdminLTE App -->
-    <script src="~/AdminLte/js/adminlte.js"></script>
-
-
 
 
     <!--bootbox弹框-->
@@ -413,81 +415,65 @@ desired effect
     <script src="~/Script/EnumHelper.js"></script>
 
 
+    <script src="~/lib/qs/qs.js"></script>
+    <script src="~/Script/RequsetHelper.js"></script>
+
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
          Both of these plugins are recommended to enhance the
          user experience. -->
 
     <script>
+        bootbox.setDefaults("locale", "zh_CN");
 
-
-
-
-
-        var vm = new Vue({
-
-            el: "#app",
-            data: {
-                workId: "",
-                userName: "",
-                sex: 0,
-                image: ""
-            },
-            created() {
-
-                //设置 bootbox 中文
-                bootbox.setDefaults("locale", "zh_CN");
-
-                //获取登录用户信息
-                this.GetLoginUser();
-            },
-            methods: {
-
-                GetLoginUser() {
-
-                    var _self = this;
-
-                    axios({
-                        method: 'post',
-                        url: '/Home/GetLoginUser'
-
-                    }).then((response) => {
-
-                        let res = response.data;
-
-
-                        if (!res.Success) {
-                            alert_info(res.Message);
-                            return;
-                        }
-
-                        _self.userId = res.Content.userId;
-                        _self.userName = res.Content.userName;
-                        _self.sex = res.Content.sex;
-                        _self.workId = res.Content.workId;
-
-                        if (_self.sex == 0) {
-                            _self.image = "/AdminLte/img/user2-160x160.jpg";
-                        }
-
-                        if (_self.sex == 1) {
-                            _self.image = "/AdminLte/img/user4-128x128.jpg";
-                        }
-
-
-                    }).catch((err) => {
-
-                        console.log(err);
-
-                    });
-
-
-                }
-
-            }
-
+        $(document).ready(function () {
+            GetLoginUser();
         });
 
+        // vue 嵌套挂载，有数据，问题，所以这用JQ 绑定一下数据 Layout 不适合用uve
 
+
+        function GetLoginUser() {
+
+            var _self = {};
+
+            axios({
+                method: 'post',
+                url: '/Home/GetLoginUser'
+
+            }).then((response) => {
+
+                let res = response.data;
+
+                if (!res.Success) {
+                    alert_info(res.Message);
+                    return;
+                }
+
+                _self.userId = res.Content.userId;
+                _self.userName = res.Content.userName;
+                _self.sex = res.Content.sex;
+                _self.workId = res.Content.workId;
+
+                $(".username").html(_self.userName + " [" + _self.workId + "]");
+
+                let imgurl = "/AdminLte/img/user2-160x160.jpg";
+
+                if (_self.sex == 1) {
+                    imgurl = "/AdminLte/img/user4-128x128.jpg"
+                }
+
+                $("#img_toplogo").attr("src", imgurl)
+                $("#img_rightlogo").attr("src", imgurl)
+                $("#image_leftlogo").attr("src", imgurl)
+
+
+            }).catch((err) => {
+
+                console.log(err);
+
+            });
+
+        }
 
     </script>
 

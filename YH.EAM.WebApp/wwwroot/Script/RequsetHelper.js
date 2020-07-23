@@ -6,9 +6,10 @@
 
 
   var ajax=  axios({
-        method: 'post',
+      method: 'post',
       url: json.url,
-      params: json.data
+      params: json.data,
+      headers: { 'X-Requested-With': 'XMLHttpRequest' },    //axios需要自己加ajax 请求头，jquery 不用，真坑
     });
 
     ajax.then((response) => {
@@ -49,7 +50,8 @@ function AjaxGet(json) {
     var ajax = axios({
         method: 'get',
         url: json.url,
-        params: json.data
+        params: json.data,
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
     });
 
     ajax.then((response) => {
@@ -82,3 +84,4 @@ function AjaxGet(json) {
 
 
 }
+

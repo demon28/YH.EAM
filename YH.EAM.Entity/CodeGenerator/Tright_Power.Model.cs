@@ -1,8 +1,10 @@
 using FreeSql.DataAnnotations;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
-
 
 
 namespace YH.EAM.Entity.CodeGenerator
@@ -28,6 +30,8 @@ namespace YH.EAM.Entity.CodeGenerator
         ///</summary>
         public int Powertype { get; set; }
         
+
+        [Required]
         ///<summary>
         ///描述：权限名称
         ///</summary>
@@ -37,7 +41,8 @@ namespace YH.EAM.Entity.CodeGenerator
         ///描述：备注
         ///</summary>
         public string Remarks { get; set; }
-        
+
+
         ///<summary>
         ///描述：父级ID
         ///</summary>
@@ -67,7 +72,11 @@ namespace YH.EAM.Entity.CodeGenerator
         ///描述：域
         ///</summary>
         public string Area { get; set; }
-        
+
+        [JsonIgnore]
+        public Tright_Power Parent { get; set; }
+
+        public List<Tright_Power> Childs { get; set; }
 
     }
  }

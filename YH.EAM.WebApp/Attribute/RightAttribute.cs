@@ -83,7 +83,7 @@ namespace YH.EAM.WebApp.Attribute
             //判断请求的 为访问页面 还是 请求功能操作 Ajax请求为功能， 非ajax请求为访问页面
             var isAjax = Context.HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
 
-
+       
 
 
             //判断该页面或操作，是否有再数据库配置过

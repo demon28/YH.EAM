@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using YH.EAM.Entity.CodeGenerator;
 using FreeSql;
+using YH.EAM.Entity.Model;
 
 namespace YH.EAM.DataAccess.CodeGenerator
 {
@@ -19,6 +20,10 @@ namespace YH.EAM.DataAccess.CodeGenerator
         }
 
 
+        public List<Tright_Power> ListByOder() {
+
+            return Select.ToTreeList();
+        }
     }
 
 }

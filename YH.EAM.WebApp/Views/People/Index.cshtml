@@ -25,10 +25,11 @@
         <li class="active">People</li>
     </ol>
 
+
 }
 
 
-<section class="content" id="tab_account">
+<section class="content" id="tab">
     <div class="row">
 
         <!-- /.col -->
@@ -42,7 +43,7 @@
 
 
                         <div class="input-group input-group-sm hidden-xs" style="width: 200px;">
-                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Search" id="txt_Search" v-model="" />
+                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Search" id="txt_Search" v-model="keywork" />
 
                             <div class="input-group-btn">
                                 <button type="button" class="btn btn-default " @@click="Search()" id="btn_Search"><i class="fa fa-search"></i></button>
@@ -73,37 +74,35 @@
                                 <th>电话</th>
                                 <th>性别</th>
                                 <th>状态</th>
+                                <th>入职时间</th>
 
                                 <th>操作</th>
                             </tr>
-                            <tr v-for="(item,index) in list" >
-                                <td>{{item.WORK_ID}}</td>
-                                <td>{{item.USER_NAME}}</td>
+                            <tr v-for="(item,index) in list">
+                                <td>{{item.Workid}}</td>
+                                <td>{{item.Name}}</td>
+                                <td>{{item.Dtname}}</td>
 
-                                <td>{{item.DTNAME}}</td>
+                                <td>{{item.Dep2}}</td>
+                                <td>{{item.Dep3}}</td>
+                                <td>{{item.Dep4}}</td>
+                                <td>{{item.Dep5}}</td>
 
-
-
-                                <td>{{item.DEPT2}}</td>
-                                <td>{{item.DEPT3}}</td>
-                                <td>{{item.DEPT4}}</td>
-                                <td>{{item.DEPT5}}</td>
-
-
-                                <td>{{item.MOBILE}}</td>
+                                <td>{{item.Phone}}</td>
 
                                 <td>
-                                    <span class="label bg-blue" v-if="item.USER_SEX ==0">男</span>
-                                    <span class="label bg-red " v-if="item.USER_SEX ==1">女</span>
+                                    <span class="label bg-blue" v-if="item.Sex ==0">男</span>
+                                    <span class="label bg-red " v-if="item.Sex ==1">女</span>
 
                                 </td>
 
                                 <td>
-                                    <span class="label label-success" v-if="item.USER_STATUS==0">在职</span>
-                                    <span class="label label-warning" v-if="item.USER_STATUS==1">离职</span>
-                                    <span class="label label-danger" v-if="item.USER_STATUS==2">锁定</span>
+                                    <span class="label label-success" v-if="item.Status==0">在职</span>
+                                    <span class="label label-warning" v-if="item.Status==1">离职</span>
+                                    <span class="label label-danger" v-if="item.Status==2">锁定</span>
                                 </td>
 
+                                <td>{{item.Comedate}}</td>
 
                                 <td>
                                     <button type="button" class="btn bg-purple  btn-xs" v-on:click="Role(item)">分配权限</button>
@@ -124,8 +123,10 @@
 
                     <div class="card-footer clearfix pull-right " style="margin-right:30px;margin-top:30px;margin-bottom:30px" id="div_page">
 
-                        <ul class="pagination pagination-sm no-margin pull-right" id="ul_page">
-                        </ul>
+                        <zpagenav v-bind:page="pageIndex" v-bind:page-size="pageSize" v-bind:total="TotalCount"
+                                  v-bind:max-page="ToTalPage" v-on:pagehandler="Init">
+                        </zpagenav>
+
                     </div>
 
 
@@ -188,71 +189,80 @@
 
 
 @section scripts{
-
-    <script src="~/lib/qs/qs.js"></script>
-    <script src="~/Script/RequsetHelper.js"></script>
+ 
 
     <script >
-
-
        
         var self;
             var vm2 = new Vue({
-                el: "#tab_account",
+                el: "#tab",
                 data: {
                     list: [],
                     rolelist: [],
                     userrolelist: [],
                     pageIndex: 1,
                     pageSize: 10,
-                    pageCount: 20,
-                    pageTotal: 0,
+                    TotalCount: 0,
+                    ToTalPage: 0,
                     userid: 0,
                     keywork:""
                 },
                 created: function () {
                     self = this;
 
-                    this.Init();
+                    this.Init(1);
+                },
+                mounted() {
+                    this.EnterKeyup();
                 },
                 methods: {
-                    Init: function () {
+                    
+                    Init: function (index) {
 
                         console.log(self);
 
                         AjaxPost({
                             url: "/People/List",
                             data: {
-                                keyword: self.keywork,
-                                pageIndex: self.pageIndex,
+                                pageIndex: index,
                                 pageSize: self.pageSize,
+                                keyword: self.keywork,
                             },
                             success: function (result) {
 
                                 console.log(result);
 
-                                if (result.Success) {
-
-                                    self.list = result.Content;
-
-                                    self.pageIndex = result.PageIndex;
-                                    self.pageSize = result.PageSize;
-                                    self.TotalCount = result.TotalCount;
-                                    self.ToTalPage = result.ToTalPage;
-
+                                if (!result.Success) {
+                                    alert_info(result.Message);
                                 }
+
+                                self.list = result.Content;
+
+                                self.pageIndex = result.PageIndex;
+                                self.pageSize = result.PageSize;
+                                self.TotalCount = result.TotalCount;
+                                self.ToTalPage = result.ToTalPage;
                             }
                         })
                     },
-
                     Search: function () {
-                        this.pageIndex = 1;
-                        this.Init();
+                        this.Init(1);
+                    },
+                    EnterKeyup() {
+                        var _self = this;
+                        document.onkeypress = function (e) {
+                            var keycode = document.all ? event.keyCode : e.which;
+
+                            if (keycode == 13) {
+                                self.Init(1);
+                                return false;
+                            }
+                        };
                     },
 
+
+
                     ChangeRole(item) {
-
-
 
                         var _self = this;
                         if (!item.checked) {
@@ -277,7 +287,6 @@
                             })
 
                         } else {
-
 
                             MyAjax({
                                 url: "/UserRight/DeleteUserRoleMebmer",

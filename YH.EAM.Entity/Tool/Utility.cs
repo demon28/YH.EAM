@@ -6,10 +6,10 @@ namespace YH.EAM.Entity.Tool
 {
     public static   class Utility
     {
-        public static int PageTotal(int TotalPage,int PageSize)
+        public static int PageTotal(int TotalCount,int PageSize)
         {
 
-            return TotalPage % PageSize == 0 ? TotalPage / PageSize : TotalPage / PageSize + 1;
+            return TotalCount % PageSize == 0 ? TotalCount / PageSize : TotalCount / PageSize + 1;
         }
 
 

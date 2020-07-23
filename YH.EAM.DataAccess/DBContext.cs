@@ -33,13 +33,16 @@ namespace YH.EAM.DataAccess
                      .UseMonitorCommand(
                         cmd =>
                         {
-                            Trace.WriteLine(DateTime.Now.ToString(""));
-                            Trace.WriteLine(cmd.CommandText);
-                        }, //监听SQL命令对象，在执行前
-                        (cmd, traceLog) =>
-                        {
-                            Console.WriteLine(traceLog);
-                        }) //监听SQL命令对象，在执行后
+
+                            Console.WriteLine("============================================");
+                            Console.WriteLine("");
+                            Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                            Console.WriteLine("");
+                            Console.WriteLine(cmd.CommandText);
+
+                            Console.WriteLine("============================================");
+                        }
+                        ) 
                     .UseLazyLoading(true)
                     .Build();
 
