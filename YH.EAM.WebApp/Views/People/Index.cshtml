@@ -164,7 +164,7 @@
                                         <label>
 
                                             <input type="checkbox" @@click="ChangeRole(item)" v-model="item.checked" style="height:20px;width:20px;" />
-                                            {{ item.ROLENAME }}
+                                            {{ item.Rolename }}
                                         </label>
 
                                     </td>
@@ -267,12 +267,12 @@
                         var _self = this;
                         if (!item.checked) {
 
-                            MyAjax({
-                                url: "/UserRight/AddUserRoleMebmer",
+                            AjaxPost({
+                                url: "/People/AddUserRoleMebmer",
                                 type: "POST",
                                 data: {
                                     userid: _self.userid,
-                                    roleid: item.ID
+                                    roleid: item.Id
                                 },
                                 success: function (res) {
                                     console.log(res);
@@ -288,8 +288,8 @@
 
                         } else {
 
-                            MyAjax({
-                                url: "/UserRight/DeleteUserRoleMebmer",
+                            AjaxPost({
+                                url: "/People/DeleteUserRoleMebmer",
                                 type: "POST",
                                 data: {
                                     id: item.URID
@@ -311,7 +311,7 @@
                     Role: function (item) {
 
                         var _self = this;
-                        _self.userid = item.USER_ID;
+                        _self.userid = item.Id;
 
                         _self.BindRoleList();
 
@@ -321,8 +321,8 @@
                     BindRoleList() {
                         var _self = this;
 
-                        MyAjax({
-                            url: "/UserRight/GetAllRole",
+                        AjaxPost({
+                            url: "/People/GetAllRole",
                             type: "POST",
                             data: {
 
@@ -335,8 +335,8 @@
 
                                 var rolearray = result.Content;
 
-                                MyAjax({
-                                    url: "/UserRight/GetUserRoleMebmer",
+                                AjaxPost({
+                                    url: "/People/GetUserRoleMebmer",
                                     type: "POST",
                                     data: {
                                         userid: _self.userid
@@ -360,12 +360,12 @@
                                             //第二层循环，用户与角色关联表， 查询出用户
                                             for (var j = 0; j < _self.userrolelist.length; j++) {
 
-                                                if (rolearray[i].ID == _self.userrolelist[j].ROLEID) {
+                                                if (rolearray[i].Id == _self.userrolelist[j].Roleid) {
 
                                                     rolearray[i].checked = true;
-                                                    rolearray[i].URID = _self.userrolelist[j].ID;
+                                                    rolearray[i].URID = _self.userrolelist[j].Id;
 
-                                                    console.log(rolearray[j].ID + "======" + rolearray[j].checked);
+                                                    console.log(rolearray[j].Id + "======" + rolearray[j].checked);
                                                 }
 
                                             }
