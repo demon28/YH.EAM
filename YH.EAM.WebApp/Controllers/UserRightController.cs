@@ -15,7 +15,7 @@ namespace YH.EAM.WebApp.Controllers
     public class UserRightController : TopControllerBase
     {
 
-        [Right(PowerName = "主页面")]
+        [Right(PowerName = "用户角色")]
         public IActionResult Index()
         {
             return View();

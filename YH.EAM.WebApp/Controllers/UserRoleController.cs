@@ -28,10 +28,6 @@ namespace YH.EAM.WebApp.Controllers
 
 
 
-     
-
-
-
         [Right(PowerName = "添加角色")]
         [HttpPost]
         public IActionResult AddRole(Tright_Role model)

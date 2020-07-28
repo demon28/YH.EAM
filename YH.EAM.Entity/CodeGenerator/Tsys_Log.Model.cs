@@ -23,7 +23,7 @@ namespace YH.EAM.Entity.CodeGenerator
         [Column(IsIdentity = true, IsPrimary = true)]
         public int Id { get; set; }
         ///<summary>
-        ///描述：1，用户登录。2，系统异常
+        ///描述：1，用户登录。2，系统异常。3操作日志
         ///</summary>
         public int Type { get; set; }
         ///<summary>

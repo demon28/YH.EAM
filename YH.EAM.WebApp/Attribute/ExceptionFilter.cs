@@ -47,6 +47,12 @@ namespace YH.EAM.WebApp.Attribute
             }
         }
 
+
+
+       /// <summary>
+       /// 将异常日志写入数据库
+       /// </summary>
+       /// <param name="message"></param>
         private void InsertSysLog(string message)
         {
             DataAccess.CodeGenerator.Tsys_Log_Da da = new DataAccess.CodeGenerator.Tsys_Log_Da();

@@ -54,10 +54,14 @@
                                 </th>
                             </tr>
 
-                            <template v-for="(item,index) in list">
+                            <template v-for="(item,index) in list" >
                                 <tr>
                                     <th>{{item.Id}}</th>
                                     <td>
+
+                                        <i v-if="!item.ChildsShow" @@click="ChildsShow(item,true)" class="fa fa-plus-square-o"></i>
+                                        <i v-if="item.ChildsShow" @@click="ChildsShow(item,false)" class="fa  fa-minus-square-o"></i>
+
 
                                         {{item.Powername}}
                                     </td>
@@ -86,7 +90,7 @@
 
 
 
-                                <tr  v-for="(child,index) in item.Childs">
+                                <tr  v-for="(child,index) in item.Childs" v-if="item.ChildsShow">
                                     <th>{{child.Id}}</th>
                                     <td>
 
@@ -312,7 +316,7 @@
                        },
                        success: function (result) {
 
-                          console.log(JSON.stringify(result));
+                        console.log(JSON.stringify(result));
 
                            if (!result.Success) {
 
@@ -320,7 +324,14 @@
                                return;
                            }
 
-                           self.list = result.Content;
+
+                           for (var i = 0; i < result.Content.length; i++) {
+
+                               let item = result.Content[i];
+                               item.ChildsShow = false;
+
+                               self.list.push(item);
+                           }
 
                        }
                    })
@@ -417,6 +428,11 @@
 
                    return EnumGetSingle(value, Power_Typelist());
                },
+               ChildsShow(item,isShow) {
+
+                   item.ChildsShow = isShow;
+
+               }
               
            },
 

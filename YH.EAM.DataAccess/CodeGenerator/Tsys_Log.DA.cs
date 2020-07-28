@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using Victory.Core.Extensions;
+using Victory.Core.Models;
 using YH.EAM.DataAccess;
 using YH.EAM.Entity.CodeGenerator;
-
+using YH.EAM.Entity.Enums;
 
 namespace YH.EAM.DataAccess.CodeGenerator
 {
@@ -20,6 +22,30 @@ namespace YH.EAM.DataAccess.CodeGenerator
 
         }
 
+
+        public List<Tsys_Log> ListByWhere(string keyword, SysLogType type,ref PageModel page)
+        {
+
+            var data = this.Select;
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                data= data.Where(s => s.Content.Contains(keyword));
+            }
+
+            if (type!= SysLogType.全部)
+            {
+                data = data.Where(s => s.Type== type.ToInt64());
+            }
+
+            page.TotalCount = data.Count().ToInt();
+
+            var list = data.Page(page.PageIndex, page.PageSize)
+                .OrderBy(s => s.Createtime)
+                .ToList();
+
+            return list;
+        }
 
     }
 

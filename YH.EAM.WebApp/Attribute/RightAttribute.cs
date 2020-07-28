@@ -60,55 +60,13 @@ namespace YH.EAM.WebApp.Attribute
 
 
 
-
             //判断请求的 为访问页面 还是 请求功能操作 Ajax请求为功能， 非ajax请求为访问页面
             var isAjax = Context.HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
 
 
+            //判断数据库是否存在该权限，不存则自动添加，无需手动配置
+            AddActionFunc(controllerName, actionName, areaName, page, isAjax);
 
-            //判断该页面或操作，是否有再数据库配置过
-            Tright_Power_Da pwmanager = new Tright_Power_Da();
-
-            
-            //数据库是否存在该页面配置
-            bool HasPage= pwmanager.Where(s => s.Pageurl.ToLower()==page.ToLower()).Count() <= 0;
-
-
-            //该页面在数据库未配置
-            if (HasPage)
-            {
-
-                Tright_Power powermodel = new Tright_Power
-                {
-                    Controller = controllerName,
-                    Action = actionName,
-                    Area = areaName,
-                    Powername = PowerName,
-                    Pageurl = page.ToLower()
-                };
-
-                if (isAjax)
-                {
-                    // 添加一个功能功能操作的权限
-                    var m = pwmanager.Where(s => s.Controller == controllerName && s.Powertype == (int)PowerType.页面访问).First();
-
-                    powermodel.Parentid = m.Id;
-                    powermodel.Powertype = (int)PowerType.功能操作;
-                  
-                }
-                else
-                {
-                    //添加一个 页面访问 权限
-                    powermodel.Parentid = 0;
-                    powermodel.Powertype = (int)PowerType.页面访问;
-                 
-                }
-
-                pwmanager.Insert(powermodel);
-
-            }
-
-         
 
             //如果全局配置忽略权限，则忽略检测
             if (AppConfig.IgnoreAuthRight)
@@ -117,14 +75,12 @@ namespace YH.EAM.WebApp.Attribute
             }
 
 
-            //该用户存在该页面权限
+            //若该用户存在该页面权限，则直接return
             Tright_User_Role_Da userrole = new Tright_User_Role_Da();
             if (userrole.ListByVm(userid, page).Count() > 0)
             {
                 return;
             }
-
-
 
 
             //是否ajax请求，是ajax 则判定为 请求操作， 非ajax则判定为 访问页面
@@ -144,8 +100,6 @@ namespace YH.EAM.WebApp.Attribute
             })); 
             
             return;
-
-
 
         }
 
@@ -206,6 +160,56 @@ namespace YH.EAM.WebApp.Attribute
 
         }
 
+
+        /// <summary>
+        /// 根据Action自动添加功能
+        /// </summary>
+        /// <returns></returns>
+        public void AddActionFunc(string controllerName,string actionName,string areaName,string page,bool isAjax)
+        {
+
+
+            //数据库是否存在该页面配置
+            Tright_Power_Da pwmanager = new Tright_Power_Da();
+            bool HasPage = pwmanager.Where(s => s.Pageurl.ToLower() == page.ToLower()).Count() <= 0;
+
+
+            if (HasPage)
+            {
+
+                Tright_Power powermodel = new Tright_Power
+                {
+                    Controller = controllerName,
+                    Action = actionName,
+                    Area = areaName,
+                    Powername = PowerName,
+                    Pageurl = page.ToLower()
+                };
+
+                if (isAjax)
+                {
+                    // 添加一个功能功能操作的权限
+                    var m = pwmanager.Where(s => s.Controller == controllerName && s.Powertype == (int)PowerType.页面访问).First();
+
+                    powermodel.Parentid = m.Id;
+                    powermodel.Powertype = (int)PowerType.功能操作;
+
+                }
+                else
+                {
+                    //添加一个 页面访问 权限
+                    powermodel.Parentid = 0;
+                    powermodel.Powertype = (int)PowerType.页面访问;
+
+                }
+
+                pwmanager.Insert(powermodel);
+
+            }
+
+
+
+        }
 
     }
 }
