@@ -15,6 +15,7 @@ using Victory.Core.Helpers;
 using log4net;
 using System.IO;
 using log4net.Config;
+using YH.EAM.WebApp.Attribute;
 
 namespace YH.EAM.WebApp
 {
@@ -47,16 +48,22 @@ namespace YH.EAM.WebApp
             //二次读流
             services.Configure<IISServerOptions>(x => x.AllowSynchronousIO = true);
 
+            
+            //配置，不用每次修改html 都重新run
             services.AddControllersWithViews()
-                .AddRazorRuntimeCompilation();  //添加该配置，不用每次修改html 都重新run
+                .AddRazorRuntimeCompilation(); 
 
 
             //添加log4net服务
             Log4netHelper.Repository = LogManager.CreateRepository("NETCoreRepository");
             XmlConfigurator.Configure(Log4netHelper.Repository, new FileInfo(Environment.CurrentDirectory + "/log4net.config"));
 
-            //
-            services.AddControllers()
+
+            //全局捕捉异常，并写log日志
+            services.AddControllers(option => { 
+                option.Filters.Add<ExceptionFilter>();
+            
+              })  
               .AddNewtonsoftJson(options =>
               {
                   options.SerializerSettings.ContractResolver = new DefaultContractResolver();

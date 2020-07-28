@@ -12,6 +12,5 @@ namespace YH.EAM.Entity.Tool
             return TotalCount % PageSize == 0 ? TotalCount / PageSize : TotalCount / PageSize + 1;
         }
 
-
     }
 }

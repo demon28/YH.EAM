@@ -101,7 +101,26 @@ namespace YH.EAM.Entity.Tool
             }
 
         }
+        
+        /// <summary>
+        /// 是否给初次登录的用户设置 默认的 用户角色
+        /// </summary>
+       public static bool IsSetDefautlRole
+        {
+            get
+            {
+                Victory.Core.Helpers.ConfigHelper configHelper = new Victory.Core.Helpers.ConfigHelper("appsettings.json");
 
+                var key = configHelper.GetSingle("IsSetDefautlRole");
 
+                if (string.IsNullOrEmpty(key))
+                {
+                    return false;
+                }
+
+                return key.ToBool();
+            }
+
+        }
     }
 }

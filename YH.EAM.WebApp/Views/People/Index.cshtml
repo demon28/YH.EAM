@@ -123,8 +123,8 @@
 
                     <div class="card-footer clearfix pull-right " style="margin-right:30px;margin-top:30px;margin-bottom:30px" id="div_page">
 
-                        <zpagenav v-bind:page="pageIndex" v-bind:page-size="pageSize" v-bind:total="TotalCount"
-                                  v-bind:max-page="ToTalPage" v-on:pagehandler="Init">
+                        <zpagenav v-bind:page="pageModel.pageIndex" v-bind:page-size="pageModel.pageSize" v-bind:total="pageModel.TotalCount"
+                                  v-bind:max-page="pageModel.ToTalPage" v-on:pagehandler="Init">
                         </zpagenav>
 
                     </div>
@@ -198,12 +198,16 @@
                 el: "#tab",
                 data: {
                     list: [],
+                    pageModel: {
+                        pageIndex: 1,
+                        pageSize: 10,
+                        TotalCount: 0,
+                        ToTalPage: 0,
+                    },
+
                     rolelist: [],
                     userrolelist: [],
-                    pageIndex: 1,
-                    pageSize: 10,
-                    TotalCount: 0,
-                    ToTalPage: 0,
+                  
                     userid: 0,
                     keywork:""
                 },
@@ -225,7 +229,7 @@
                             url: "/People/List",
                             data: {
                                 pageIndex: index,
-                                pageSize: self.pageSize,
+                                pageSize: self.pageModel.pageSize,
                                 keyword: self.keywork,
                             },
                             success: function (result) {
@@ -238,10 +242,10 @@
 
                                 self.list = result.Content;
 
-                                self.pageIndex = result.PageIndex;
-                                self.pageSize = result.PageSize;
-                                self.TotalCount = result.TotalCount;
-                                self.ToTalPage = result.ToTalPage;
+                                self.pageModel.pageIndex = result.PageIndex;
+                                self.pageModel.pageSize = result.PageSize;
+                                self.pageModel.TotalCount = result.TotalCount;
+                                self.pageModel.ToTalPage = result.ToTalPage;
                             }
                         })
                     },

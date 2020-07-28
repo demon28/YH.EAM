@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using YH.EAM.Entity.Model;
-using YH.EAM.WebApp.Models;
+
 
 namespace YH.EAM.WebApp.Controllers
 {
@@ -26,7 +26,10 @@ namespace YH.EAM.WebApp.Controllers
         {
             return View();
         }
-
+        public IActionResult Error()
+        {
+            return View();
+        }
 
         /// <summary>
         /// 获取登录用户信息

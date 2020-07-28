@@ -9,6 +9,7 @@ namespace YH.EAM.Entity.Enums
     /// </summary>
     public enum PowerType
     {
+        系统菜单=0,
         页面访问 = 1,
         功能操作 = 2
     }

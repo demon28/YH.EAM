@@ -10,6 +10,8 @@ using Victory.Core.Encrypt;
 using Victory.Core.Controller;
 using YH.EAM.Entity.CodeGenerator;
 using System.Security.Claims;
+using YH.EAM.Entity.Enums;
+using Victory.Core.Extensions;
 
 namespace YH.EAM.WebApp.Controllers
 {
@@ -67,8 +69,18 @@ namespace YH.EAM.WebApp.Controllers
                 ExpiresUtc = DateTime.UtcNow.AddMinutes(120),
                 IsPersistent = false,
                 AllowRefresh = true
-
             });
+
+            DataAccess.CodeGenerator.Tsys_Log_Da da = new DataAccess.CodeGenerator.Tsys_Log_Da();
+
+            //增加系统登录日志
+            Tsys_Log model = new Tsys_Log()
+            {
+                Content = $"用户[{userModel.Name}],登录成功! 时间：{DateTime.Now}",
+                Createtime = DateTime.Now,
+                Type = (int)SysLogType.登录日志,
+            };
+            da.Insert(model);
 
             return SuccessMessage("登录成功！");
 

@@ -8,74 +8,55 @@ using System.Threading.Tasks;
 using YH.EAM.DataAccess.CodeGenerator;
 using YH.EAM.Entity.CodeGenerator;
 using YH.EAM.Entity.Enums;
+using YH.EAM.Entity.Tool;
 
 namespace YH.EAM.WebApp.Attribute
 {
     public class RightAttribute : ActionFilterAttribute
     {
+        /// <summary>
+        /// 忽略权限
+        /// </summary>
         public bool Ignore { get; set; }
+
+        /// <summary>
+        /// 权限名称
+        /// </summary>
         public string PowerName { get; set; }
+
 
         public override void OnActionExecuting(ActionExecutingContext Context)
         {
             base.OnActionExecuting(Context);
 
 
-            //先取出登录用户id；
+            //先取出登录用户id
             int userid = int.Parse(Context.HttpContext.User.FindFirst("userId").Value);
 
 
-            //如果是初次登录，再系统中没有任何角色 则给用户 分配 一个默认角色，数据库id为1，1为普通会员
-           Tright_User_Role_Da userrole = new Tright_User_Role_Da();
-
-            if (userrole.Where(s => s.Userid == userid).Count() <= 0)
+            //根据配置文件决定是否给初次登录的用户 分配一个默认的登录角色
+            
+            if (AppConfig.IsSetDefautlRole)
             {
-                Tright_User_Role userolemodel = new Tright_User_Role()
-                {
-                    Roleid = 1,   //默认1为普通会员
-                    Userid = userid
-                };
-                userrole.Insert(userolemodel);
+                SetDefaultRole(userid);
+
             }
 
 
-
-            //如果Ignore 为true 则表示不检查权限，这里只给他初次登录分配 普通会员角色
+            //如果Ignore 为true 则表示不检查该操作，这里只给他初次登录分配 普通会员角色
             if (Ignore)
             {
                 return;
             }
 
 
+            //获取路由地址
 
+            string areaName = string.Empty;
+            string controllerName = string.Empty;
+            string actionName = string.Empty;
 
-            //获取当前页面 或 功能 的路由地址
-
-            var areaName = string.Empty; 
-            var controllerName = string.Empty;
-            var actionName = string.Empty;
-
-            if (Context.ActionDescriptor.RouteValues.ContainsKey("area"))
-            {
-                areaName = Context.ActionDescriptor.RouteValues["area"].ToString();
-            }
-            if (Context.ActionDescriptor.RouteValues.ContainsKey("controller"))
-            {
-                controllerName = Context.ActionDescriptor.RouteValues["controller"].ToString();
-            }
-            if (Context.ActionDescriptor.RouteValues.ContainsKey("action"))
-            {
-                actionName = Context.ActionDescriptor.RouteValues["action"].ToString();
-            }
-
-
-
-            var page = "/" + controllerName + "/" + actionName;
-
-            if (!string.IsNullOrEmpty(areaName))
-            {
-                page = "/" + areaName + page;
-            }
+            string page = GetPageUrl(Context, ref areaName, ref controllerName, ref actionName);
 
 
 
@@ -83,7 +64,6 @@ namespace YH.EAM.WebApp.Attribute
             //判断请求的 为访问页面 还是 请求功能操作 Ajax请求为功能， 非ajax请求为访问页面
             var isAjax = Context.HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
 
-       
 
 
             //判断该页面或操作，是否有再数据库配置过
@@ -94,7 +74,7 @@ namespace YH.EAM.WebApp.Attribute
             bool HasPage= pwmanager.Where(s => s.Pageurl.ToLower()==page.ToLower()).Count() <= 0;
 
 
-            //该页面再数据库未配置
+            //该页面在数据库未配置
             if (HasPage)
             {
 
@@ -128,20 +108,23 @@ namespace YH.EAM.WebApp.Attribute
 
             }
 
-
+         
 
             //如果全局配置忽略权限，则忽略检测
-            if (Entity.Tool.AppConfig.IgnoreAuthRight)
+            if (AppConfig.IgnoreAuthRight)
             {
                 return;
             }
 
 
             //该用户存在该页面权限
+            Tright_User_Role_Da userrole = new Tright_User_Role_Da();
             if (userrole.ListByVm(userid, page).Count() > 0)
             {
                 return;
             }
+
+
 
 
             //是否ajax请求，是ajax 则判定为 请求操作， 非ajax则判定为 访问页面
@@ -153,7 +136,7 @@ namespace YH.EAM.WebApp.Attribute
 
             }
 
-            //跳转配置的页面
+            //跳转指定的没有权限的页面
             Context.Result = new RedirectToRouteResult(new RouteValueDictionary(new
             {
                 controller = "UserRight",
@@ -164,16 +147,64 @@ namespace YH.EAM.WebApp.Attribute
 
 
 
-
-
-
-
         }
 
 
+        /// <summary>
+        /// 给用户设置默认登录角色
+        /// </summary>
+        /// <returns></returns>
+
+        public void SetDefaultRole(int userid) {
+
+            Tright_User_Role_Da userrole = new Tright_User_Role_Da();
+
+            if (userrole.Where(s => s.Userid == userid).Count() <= 0)
+            {
+                Tright_User_Role userolemodel = new Tright_User_Role()
+                {
+                    Roleid = 1,   //默认1为普通会员
+                    Userid = userid
+                };
+
+                userrole.Insert(userolemodel);
+            }
+
+        }
+
+        /// <summary>
+        /// 获取当前页面 或 功能 的路由地址
+        /// </summary>
+        /// <param name="Context"></param>
+        /// <returns></returns>
+        public string GetPageUrl(ActionExecutingContext Context, ref string areaName,ref string controllerName, ref string actionName) {
 
 
-     
+            if (Context.ActionDescriptor.RouteValues.ContainsKey("area"))
+            {
+                areaName = Context.ActionDescriptor.RouteValues["area"].ToString();
+            }
+            if (Context.ActionDescriptor.RouteValues.ContainsKey("controller"))
+            {
+                controllerName = Context.ActionDescriptor.RouteValues["controller"].ToString();
+            }
+            if (Context.ActionDescriptor.RouteValues.ContainsKey("action"))
+            {
+                actionName = Context.ActionDescriptor.RouteValues["action"].ToString();
+            }
+
+
+
+            var page = "/" + controllerName + "/" + actionName;
+
+            if (!string.IsNullOrEmpty(areaName))
+            {
+                page = "/" + areaName + page;
+            }
+
+            return page;
+
+        }
 
 
     }
