@@ -15,7 +15,7 @@ namespace YH.EAM.WebApp.Controllers
     [Authorize]
     public class SysLogController : TopControllerBase
     {
-        [Right(PowerName = "访问")]
+        [Right(PowerName = "系统日志")]
         public IActionResult Index()
         {
             return View();

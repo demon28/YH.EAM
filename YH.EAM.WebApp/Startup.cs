@@ -61,7 +61,7 @@ namespace YH.EAM.WebApp
 
             //全局捕捉异常，并写log日志
             services.AddControllers(option => { 
-                option.Filters.Add<ExceptionFilter>();
+              //  option.Filters.Add<ExceptionFilter>();
             
               })  
               .AddNewtonsoftJson(options =>

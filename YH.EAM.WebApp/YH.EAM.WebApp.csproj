@@ -1434,8 +1434,4 @@
     <ProjectReference Include="..\YH.EAM.Facade\YH.EAM.Facade.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>
