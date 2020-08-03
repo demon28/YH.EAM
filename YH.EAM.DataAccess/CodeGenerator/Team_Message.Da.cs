@@ -1,3 +1,8 @@
+//DA  v1.1
+//2020-7-31
+//Near
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -14,24 +19,24 @@ namespace  YH.EAM.DataAccess.CodeGenerator
 {
 
     /// <summary>
-    ///   资产类型
+    ///   资产列表
     ///</summary>
-    public class TEAM_Type_Da : FreeSql.BaseRepository<TEAM_Type>
+    public class Team_Message_Da : FreeSql.BaseRepository<Team_Message>
     {
 
-        public TEAM_Type_Da() : base(DataAccess.DbContext.Db, null, null)
+        public Team_Message_Da() : base(DataAccess.DbContext.Db, null, null)
         {
 
         }
 
 
-        public List<TEAM_Type> ListByWhere(string keyword, ref PageModel page) {
+        public List<Team_Message> ListByWhere(string keyword, ref PageModel page) {
 
             var data =this.Select;
 
             if(!string.IsNullOrEmpty(keyword))
             {
-                data= data.Where(s => s.Type.Contains(keyword) );
+                data= data.Where(s => s.Equipment_Numbers.Contains(keyword) || s.Computer_Name.Contains(keyword) || s.Type.Contains(keyword) || s.Status.Contains(keyword) || s.Outside_Network.Contains(keyword) );
             }
 
             page.TotalCount = data.Count().ToInt();

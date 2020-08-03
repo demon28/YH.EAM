@@ -21,6 +21,10 @@
     {
       "library": "qs@6.9.4",
       "destination": "wwwroot/lib/qs/"
+    },
+    {
+      "library": "element-ui@2.13.2",
+      "destination": "wwwroot/lib/element-ui/"
     }
   ]
 }
