@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Victory.Core.Controller;
+using Victory.Core.Extensions;
 using Victory.Core.Models;
 using YH.EAM.DataAccess.CodeGenerator;
 using YH.EAM.Entity.CodeGenerator;
@@ -48,6 +49,7 @@ namespace YH.EAM.DataAccess.CodeGenerator
         [HttpPost]
         public IActionResult Add(Team_Message model)
         {
+            model.Createtime=DateTime.Now.ToLongDateString().ToDateTime();
             if(model!=null)
             { 
                 model.Inbound_Date=model.Createtime;
@@ -64,6 +66,7 @@ namespace YH.EAM.DataAccess.CodeGenerator
         [HttpPost]
         public IActionResult Update(Team_Message model)
         {
+            model.Createtime=DateTime.Now.ToLongDateString().ToDateTime();
             Team_Message_Da da = new Team_Message_Da();
             da.Update(model);
             return SuccessMessage("成功！");

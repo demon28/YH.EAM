@@ -119,9 +119,9 @@ Near
 
                     <div class="card-footer clearfix pull-right " style="margin-right:30px;margin-top:30px;margin-bottom:30px" id="div_page">
 
-                        @*<zpagenav v-bind:page="pageModel.pageIndex" v-bind:page-size="pageModel.pageSize" v-bind:total="pageModel.TotalCount"
+                        <zpagenav v-bind:page="pageModel.pageIndex" v-bind:page-size="pageModel.pageSize" v-bind:total="pageModel.TotalCount"
                                   v-bind:max-page="pageModel.ToTalPage" v-on:pagehandler="Init">
-                        </zpagenav>*@
+                        </zpagenav>
 
                     </div>
 
@@ -175,11 +175,6 @@ Near
                              </div>
                               <div class="form-group">
                                 <label for="txt_projectname" class="col-sm-3 control-label">状态：</label>
-
-                                @*<div class="col-sm-7">
-                                    <select v-model="selected"> <option v-for="item in list" v-bind:key="item.Id" :label="item.message" :value="item.Id"> {{item.message}}</option> </select>
-                                    <input type="text" class="form-control" v-model="info.Status">
-                                </div>*@
 
                               <div class="col-sm-7">
                                   <select v-model="info.Status" style="width:320px">
@@ -295,7 +290,7 @@ Near
 
 
 @section scripts{
-    <script src="~/lib/vue/vue.js"></script>
+
     <script>
 
        var self;
@@ -412,9 +407,7 @@ Near
                    })
                },
                Update: function () {
-
-
-                   console.log(self.info);
+                   console.log(self.info,"+++++++++++++++++++++++++++++++");
                    AjaxPost({
                        url: "/AssetMessage/Update",
                        type: "POST",
@@ -438,7 +431,6 @@ Near
                    this.operation = "update";
                    $('#modal-default').modal('show');
                    this.info = item;
-                   console.log(item,"====================");
 
                },
                ShowAdd() {
@@ -466,12 +458,7 @@ Near
               
               
            },
-
-
-
        });
-
-
     </script>
 
 }
