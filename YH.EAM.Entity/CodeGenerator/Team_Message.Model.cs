@@ -44,7 +44,7 @@ namespace YH.EAM.DataAccess.CodeGenerator
         ///<summary>
         ///描述：规格型号
         ///</summary>
-        public string Model { get; set; }
+        public string Size_Model { get; set; }
         ///<summary>
         ///描述：资产类型
         ///</summary>
