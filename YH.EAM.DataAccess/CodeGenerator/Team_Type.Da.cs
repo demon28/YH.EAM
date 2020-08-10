@@ -25,26 +25,29 @@ namespace  YH.EAM.DataAccess.CodeGenerator
         }
 
 
-        public List<TEAM_Type> ListByWhere(string keyword, ref PageModel page) {
-
+        public List<TEAM_Type> ListByWhere(string keyword, ref PageModel page) 
+        {
             var data =this.Select;
-
+            List<TEAM_Type> list;
             if(!string.IsNullOrEmpty(keyword))
             {
                 data= data.Where(s => s.Type.Contains(keyword) );
             }
-
-            page.TotalCount = data.Count().ToInt();
-          
-
-            var list = data.Page(page.PageIndex, page.PageSize)
+            //如果没有分页信息
+            if(page.PageIndex==0)
+            { 
+                list = data.OrderBy(s => s.Createtime)
+                .ToList();
+            }
+            else
+            {
+                 page.TotalCount = data.Count().ToInt();
+                 list = data.Page(page.PageIndex,page.PageSize)
                 .OrderBy(s => s.Createtime)
                 .ToList();
-
+            }          
             return list;
         }
-
-
     }
 
 }

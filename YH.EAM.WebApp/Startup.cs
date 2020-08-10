@@ -47,17 +47,14 @@ namespace YH.EAM.WebApp
 
             //二次读流
             services.Configure<IISServerOptions>(x => x.AllowSynchronousIO = true);
-
             
             //配置，不用每次修改html 都重新run
             services.AddControllersWithViews()
-                .AddRazorRuntimeCompilation(); 
-
-
+                .AddRazorRuntimeCompilation();         
+            
             //添加log4net服务
             Log4netHelper.Repository = LogManager.CreateRepository("NETCoreRepository");
             XmlConfigurator.Configure(Log4netHelper.Repository, new FileInfo(Environment.CurrentDirectory + "/log4net.config"));
-
 
             //全局捕捉异常，并写log日志
             services.AddControllers(option => { 

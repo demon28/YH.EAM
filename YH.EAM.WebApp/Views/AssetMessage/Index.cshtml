@@ -12,7 +12,7 @@ Near
 
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
         <li class="active">资产列表</li>
     </ol>
 
@@ -31,6 +31,37 @@ Near
 
                     <div class="box-tools">
 
+                        <div class="input-group input-group-sm  col-md-1 pull-right ml-1" style="margin-left:10px;">
+                            <button type="button" class="btn btn-default pull-right" v-on:click="Print()" id="btn_Print">批量标签打印</button>
+                        </div>
+
+                        <div class="input-group input-group-sm  col-md-1 pull-right ml-1" style="margin-left:10px;">
+                            <button type="button" class="btn btn-default pull-right" v-on:click="Remove()" id="btn_Remove">批量删除</button>
+                        </div>
+
+                        <div class="input-group input-group-sm  col-md-1 pull-right ml-1" style="margin-left:10px;">
+                            <button type="button" class="btn btn-default pull-right" v-on:click="Output()" id="btn_Output">导出</button>
+                        </div>
+
+                        @*<div class="input-group input-group-sm  col-md-1 pull-right ml-1" style="margin-left:10px;">
+            <button type="button" class="btn btn-default pull-right" v-on:click="Input()" id="btn_Input">导入</button>
+        </div>*@
+
+                        <el-upload style="float:right;margin-left:10px"
+                                   class="upload-demo"
+                                   action=""
+                                   :on-change="handleChange"
+                                   :file-list="fileListUpload"
+                                   :show-file-list="false"
+                                   accept=".xls,.xlsx"
+                                   :auto-upload="false">
+                            <el-button :loading="disbtn" type="primary">导入 </el-button>
+                        </el-upload>
+
+                        <div class="input-group input-group-sm  col-md-1 pull-right ml-1" style="margin-left:10px;">
+                            <button type="button" class="btn btn-default pull-right" v-on:click="ShowAdd()" id="btn_Search">添加</button>
+                        </div>
+
                         <div class="input-group input-group-sm hidden-xs  pull-right" style="width: 200px;">
                             <input type="text" name="table_search" class="form-control pull-right" placeholder="Search" id="txt_Search" v-model="keywork" />
 
@@ -38,11 +69,10 @@ Near
                                 <button type="button" class="btn btn-default " v-on:click="Search()" id="btn_Search"><i class="fa fa-search"></i></button>
                             </div>
 
-                            <div class="input-group input-group-sm  col-md-1 pull-right ml-1" style="margin-left:10px;">
-                                <button type="button" class="btn btn-default pull-right" v-on:click="ShowAdd()" id="btn_Search">添加</button>
-                            </div>
-
                         </div>
+
+
+
 
                     </div>
                 </div>
@@ -54,55 +84,73 @@ Near
                         <tbody>
                             <tr>
 
-                                  <th>Id</th>
-                                  <th>设备编号</th>
-                                  <th>名称</th>
-                                  <th>状态</th>
-                                  <th>规格型号</th>
-                                  <th>资产类型</th>
-                                  <th>入库日期</th>
-                                  <th>财务编号</th>
-                                  <th>计算机名</th>
-                                  <th>物理地址</th>
-                                  <th>位置</th>
-                                  <th>是否加域</th>
-                                  <th>外网权限</th>
-                                  <th>设备详情</th>
-                                  <th>备注</th>
-                                  <th>更新时间</th>
+                                <th>Id</th>
+                                <th>使用人</th>
+                                <th>工号</th>
+                                <th>一级部门</th>
+                                <th>二级部门</th>
+                                <th>设备编号</th>
+                                <th>名称</th>
+                                <th>状态</th>
+                                <th>规格型号</th>
+                                <th>资产类型</th>
+                                <th>入库日期</th>
+                                <th>财务编号</th>
+                                <th>计算机名</th>
+                                <th>物理地址</th>
+                                <th>位置</th>
+                                <th>是否加域</th>
+                                <th>外网权限</th>
+                                <th>设备详情</th>
+                                <th>备注</th>
+                                <th>更新时间</th>
 
-                             <th style="text-align:right">
+                                <th style="text-align:right">
                                     操作
-                             </th>
+                                </th>
 
                             </tr>
 
-                   
-                                <tr v-for="(item,index) in list">
-                                         <td> {{item.Id}}</td>
-                                         <td> {{item.Equipment_Numbers}}</td>
-                                         <td> {{item.Name}}</td>
-                                         <td> {{item.Status}}</td>
-                                         <td> {{item.Size_Model}}</td>
-                                         <td> {{item.Type}}</td>
-                                         <td> {{item.Inbound_Date}}</td>
-                                         <td> {{item.Financial_Numbers}}</td>
-                                         <td> {{item.Computer_Name}}</td>
-                                         <td> {{item.Physical_Address}}</td>
-                                         <td> {{item.Location}}</td>
-                                         <td> {{item.Add_Domain}}</td>
-                                         <td> {{item.Outside_Network}}</td>
-                                         <td> {{item.Equipment_Detailed}}</td>
-                                         <td> {{item.Remarks}}</td>
-                                         <td> {{item.Createtime}}</td>
 
-                                    <td style="text-align:right">
+                            <tr v-for="(item,index) in list">
+                                <td> {{item.Id}}</td>
+                                <td> {{item.User}}</td>
+                                <td> {{item.Workerid}}</td>
+                                <td> {{item.Dep1}}</td>
+                                <td> {{item.Dep2}}</td>
+                                <td> {{item.Equipment_Numbers}}</td>
+                                <td> {{item.Name}}</td>
+                                <td> {{item.Status}}</td>
+                                <td> {{item.Size_Model}}</td>
+                                <td> {{item.Type}}</td>
+                                <td> {{item.Inbound_Date}}</td>
+                                <td> {{item.Financial_Numbers}}</td>
+                                <td> {{item.Computer_Name}}</td>
+                                <td> {{item.Physical_Address}}</td>
+                                <td> {{item.Location}}</td>
+                                <td> {{item.Add_Domain}}</td>
+                                <td> {{item.Outside_Network}}</td>
+                                <td> {{item.Equipment_Detailed}}</td>
+                                <td> {{item.Remarks}}</td>
+                                <td> {{item.Createtime}}</td>
 
-                                        <button type="button" class="btn bg-purple  btn-xs" v-on:click="ShowUpdate(item)">修改</button>
-                                        &nbsp;      &nbsp;
-                                        <button type="button" class="btn bg-red btn-xs" v-on:click="Del(item)">删除</button>
-                                    </td>
-                                </tr>
+                                <td style="text-align:right">
+
+                                    <button type="button" class="btn bg-purple  btn-xs" v-on:click="ShowUpdate(item)">修改</button>
+                                    &nbsp;      &nbsp;
+                                    <button type="button" class="btn bg-red btn-xs" v-on:click="Del(item)">删除</button>
+                                    &nbsp;      &nbsp;
+                                    <button type="button" class="btn bg-purple  btn-xs" v-on:click="ShowUpdate(item)">领用登记</button>
+                                    &nbsp;      &nbsp;
+                                    <button type="button" class="btn bg-red btn-xs" v-on:click="Del(item)">借用登记</button>
+                                    &nbsp;      &nbsp;
+                                    <button type="button" class="btn bg-red btn-xs" v-on:click="Del(item)">变更登记</button>
+                                    &nbsp;      &nbsp;
+                                    <button type="button" class="btn bg-purple  btn-xs" v-on:click="ShowUpdate(item)">归还登记</button>
+                                    &nbsp;      &nbsp;
+                                    <button type="button" class="btn bg-red btn-xs" v-on:click="Del(item)">标签打印</button>
+                                </td>
+                            </tr>
 
 
 
@@ -122,7 +170,6 @@ Near
                         <zpagenav v-bind:page="pageModel.pageIndex" v-bind:page-size="pageModel.pageSize" v-bind:total="pageModel.TotalCount"
                                   v-bind:max-page="pageModel.ToTalPage" v-on:pagehandler="Init">
                         </zpagenav>
-
                     </div>
 
 
@@ -136,7 +183,6 @@ Near
     <!-- /.col -->
     <!-- /.row -->
 
-
     <div class="modal fade" id="modal-default">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -147,130 +193,168 @@ Near
                     <h4 class="modal-title" id="txt_username"> 资产列表</h4>
                 </div>
                 <div class="modal-body">
-
-
                     <form class="form-horizontal">
 
 
-                              @*<div class="form-group">
-                                <label for="txt_projectname" class="col-sm-3 control-label">Id：</label>
+                        @*<div class="form-group">
+                               <label for="txt_projectname" class="col-sm-3 control-label">Id：</label>
 
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" v-model="info.Id">
-                                </div>
-                             </div>*@
-                              <div class="form-group">
-                                <label for="txt_projectname" class="col-sm-3 control-label">设备编号：</label>
+                               <div class="col-sm-7">
+                                   <input type="text" class="form-control" v-model="info.Id">
+                               </div>
+                            </div>*@
 
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" v-model="info.Equipment_Numbers">
-                                </div>
-                             </div>
-                              <div class="form-group">
-                                <label for="txt_projectname" class="col-sm-3 control-label">名称：</label>
+                        <div class="form-group">
+                            <label for="txt_projectname" class="col-sm-3 control-label">工号：</label>
 
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" v-model="info.Name">
-                                </div>
-                             </div>
-                              <div class="form-group">
-                                <label for="txt_projectname" class="col-sm-3 control-label">状态：</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" v-model="info.Workerid" v-on:keyup.enter="specifiName()">
+                            </div>
+                        </div>
 
-                              <div class="col-sm-7">
-                                  <select v-model="info.Status" style="width:320px">
-                                      <option v-for="item  in StatusData" v-bind:value="item.value">{{ item.Id }}</option>
-                                  </select>
-                              </div>
-                             </div>
-                              <div class="form-group">
-                                <label for="txt_projectname" class="col-sm-3 control-label">规格型号：</label>
+                        <div class="form-group">
+                            <label for="txt_projectname" class="col-sm-3 control-label">使用人：</label>
 
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" v-model="info.Size_Model">
-                                </div>
-                             </div>
-                              <div class="form-group">
-                                <label for="txt_projectname" class="col-sm-3 control-label">资产类型：</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" v-model="info.User">
+                            </div>
+                        </div>
 
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" v-model="info.Type">
-                                </div>
-                             </div>
-                              @*<div class="form-group">
-                                <label for="txt_projectname" class="col-sm-3 control-label">入库日期：</label>
+                        <div class="form-group">
+                            <label for="txt_projectname" class="col-sm-3 control-label">一级部门：</label>
 
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" v-model="info.Inbound_Date">
-                                </div>
-                             </div>*@
-                              <div class="form-group">
-                                <label for="txt_projectname" class="col-sm-3 control-label">财务编号：</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" v-model="info.Dep1">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_projectname" class="col-sm-3 control-label">二级部门：</label>
 
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" v-model="info.Financial_Numbers">
-                                </div>
-                             </div>
-                              <div class="form-group">
-                                <label for="txt_projectname" class="col-sm-3 control-label">计算机名：</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" v-model="info.Dep2">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_projectname" class="col-sm-3 control-label">设备编号：</label>
 
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" v-model="info.Computer_Name">
-                                </div>
-                             </div>
-                              <div class="form-group">
-                                <label for="txt_projectname" class="col-sm-3 control-label">物理地址：</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" v-model="info.Equipment_Numbers">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_projectname" class="col-sm-3 control-label">资产名称：</label>
 
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" v-model="info.Physical_Address">
-                                </div>
-                             </div>
-                              <div class="form-group">
-                                <label for="txt_projectname" class="col-sm-3 control-label">位置：</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" v-model="info.Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_projectname" class="col-sm-3 control-label">状态：</label>
 
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" v-model="info.Location">
-                                </div>
-                             </div>
-                              <div class="form-group">
-                                <label for="txt_projectname" class="col-sm-3 control-label">是否加域：</label>
+                            <div class="col-sm-7">
+                                <select v-model="info.Status" class="form-control" style="width:320px">
+                                    <option disabled value="">请选择</option>
+                                    <option>入库</option>
+                                    <option>领用</option>
+                                    <option>借用</option>
+                                    <option>归还入库</option>
+                                    <option>报废</option>
+                                </select>
 
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" v-model="info.Add_Domain">
-                                </div>
-                             </div>
-                              <div class="form-group">
-                                <label for="txt_projectname" class="col-sm-3 control-label">外网权限：</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_projectname" class="col-sm-3 control-label">规格型号：</label>
 
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" v-model="info.Outside_Network">
-                                </div>
-                             </div>
-                              <div class="form-group">
-                                <label for="txt_projectname" class="col-sm-3 control-label">设备详情：</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" v-model="info.Size_Model">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_projectname" class="col-sm-3 control-label">资产类型：</label>
 
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" v-model="info.Equipment_Detailed">
-                                </div>
-                             </div>
-                              <div class="form-group">
-                                <label for="txt_projectname" class="col-sm-3 control-label">备注：</label>
+                            <div class="col-sm-7">
+                                <select v-model="info.Type" class="form-control" style="width:320px">
+                                    <option v-for="item in listType" v-bind:value="item.Type">{{ item.Type }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                               <label for="txt_projectname" class="col-sm-3 control-label">Inbound_Date：</label>
 
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" v-model="info.Remarks">
-                                </div>
-                             </div>
-                              @*<div class="form-group">
-                                <label for="txt_projectname" class="col-sm-3 control-label">Createtime：</label>
+                               <div class="col-sm-7">
+                                   <input type="text" class="form-control" v-model="info.Inbound_Date">
+                               </div>
+                            </div>*@
+                        <div class="form-group">
+                            <label for="txt_projectname" class="col-sm-3 control-label">财务编号：</label>
 
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" v-model="info.Createtime">
-                                </div>
-                             </div>*@
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" v-model="info.Financial_Numbers">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_projectname" class="col-sm-3 control-label">计算机名：</label>
+
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" v-model="info.Computer_Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_projectname" class="col-sm-3 control-label">物理地址：</label>
+
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" v-model="info.Physical_Address">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_projectname" class="col-sm-3 control-label">位置：</label>
+
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" v-model="info.Location">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_projectname" class="col-sm-3 control-label">是否加域：</label>
+
+                            <div class="col-sm-7">
+                                <select v-model="info.Add_Domain" class="form-control" style="width:320px">
+                                    <option disabled value="">请选择</option>
+                                    <option>是</option>
+                                    <option>否</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_projectname" class="col-sm-3 control-label">外网权限：</label>
+
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" v-model="info.Outside_Network">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_projectname" class="col-sm-3 control-label">设备详情：</label>
+
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" v-model="info.Equipment_Detailed">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_projectname" class="col-sm-3 control-label">备注：</label>
+
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" v-model="info.Remarks">
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                               <label for="txt_projectname" class="col-sm-3 control-label">Createtime：</label>
+
+                               <div class="col-sm-7">
+                                   <input type="text" class="form-control" v-model="info.Createtime">
+                               </div>
+                            </div>*@
 
                     </form>
-
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary pull-right" v-on:click="Add()" v-if="operation=='add'">添 加</button>
@@ -284,6 +368,53 @@ Near
     </div>
 
 
+    
+    @*<div class="modal fade" id="modal-Input">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="txt_username"> 数据导入</h4>
+                    </div>
+
+                    <div class="container">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    <label class="control-label" style="float:right">上传文件</label>
+                                </div>
+                                <div class="col-md-3">
+                                    <input id="fileUpload" name="fileUpload" type="file" style="display:none" />
+
+                                    <input id="fileText" type="text" class="help-block" />
+                                </div>
+                                <div class="from-group">
+
+                                    <button type="button" class=" btn btn-primary" onchange="HandleChange">浏览</button>
+                                </div>
+                            </div>
+
+                            <script>
+                                $("#fileUpload").change(function () {
+                                    $("#fileText").val($(this).val());
+                                })
+                            </script>
+
+                            <div class="form-group">
+                                <div class="col-md-3 col-md-offset-3">
+                                    <button type="submit" class="btn btn-primary pull-right" v-on:click="Input()">导入</button>
+                                    <div class="btn-group">
+                                         <button type="button" class="btn btn-primary dropdown-toggle" v-on:click="Output()">导出</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>*@
 </section>
 
 
@@ -297,14 +428,8 @@ Near
        var vm = new Vue({
            el: "#tab",
            data: {
-               list:[],
-               StatusData: [
-                       { Id: '入库', value: '入库'},
-                       { Id: '领用', value: '领用' },
-                       { Id: '借用', value: '借用'},
-                       { Id: '归还入库', value: '归还入库' },
-                       { Id: '报废', value: '报废' }
-               ],
+               list: [],
+               listType: [],
                pageModel: {
                     pageIndex: 1,
                     pageSize: 15,
@@ -313,12 +438,13 @@ Near
                 },
                operation: "add",
                info: {},
+               peopleInfo: {},
                keywork: ""
            },
            created: function () {
                self=this;
                self.Init(1);
-
+               self.IntType();
            },
            mounted: function () {
 
@@ -349,10 +475,10 @@ Near
                           
                             self.list = result.Content;
 
-                           self.pageModel.pageIndex = result.PageIndex;
-                           self.pageModel.pageSize = result.PageSize;
-                           self.pageModel.TotalCount = result.TotalCount;
-                           self.pageModel.ToTalPage = result.ToTalPage;
+                            self.pageModel.pageIndex = result.PageIndex;
+                            self.pageModel.pageSize = result.PageSize;
+                            self.pageModel.TotalCount = result.TotalCount;
+                            self.pageModel.ToTalPage = result.ToTalPage;
                        }
                    })
                },
@@ -407,7 +533,6 @@ Near
                    })
                },
                Update: function () {
-                   console.log(self.info,"+++++++++++++++++++++++++++++++");
                    AjaxPost({
                        url: "/AssetMessage/Update",
                        type: "POST",
@@ -427,6 +552,42 @@ Near
                    })
 
                },
+               Input: function () {
+                   AjaxPost({
+                       url: "/AssetMessage/Input",
+                       type: "POST",
+                       data: {
+                           
+                       },
+                       success: function (result) {
+
+                           if (!result.Success) {
+
+                               alert_danger(result.Message);
+                               return;
+                           }
+                           $('#modal-default').modal('hide');
+                           alert_success(result.Message);
+                       }
+                   })
+               },
+               Output: function () {
+                   AjaxPost({
+                       url: "/AssetMessage/Output",
+                       type: "POST",
+                       data: {},
+                       success: function (result) {
+
+                           if (!result.Success) {
+
+                               alert_danger(result.Message);
+                               return;
+                           }
+                           $('#modal-default').modal('hide');
+                           alert_success(result.Message);
+                       }
+                   })
+               },
                ShowUpdate: function (item) {
                    this.operation = "update";
                    $('#modal-default').modal('show');
@@ -438,13 +599,15 @@ Near
                    this.operation = "add";
                    this.info = {};
                    $('#modal-default').modal('show');
-                   
-                 
                },
-                Search: function () {
+               Search: function () {
                     self.Init(1);
-                },
-                EnterKeyup() {
+               },
+               //ShowInput: function () {                
+               //     this.dialogVisible = true;
+                   
+               //},
+               EnterKeyup() {
                  
                     document.onkeypress = function (e) {
                         var keycode = document.all ? event.keyCode : e.which;
@@ -455,10 +618,169 @@ Near
                         }
                     };
                 },
-              
-              
-           },
+               IntType() {
+                   //1,请求控制器，获取数据
+                   AjaxPost({
+                       url: "/AssetType/List",
+                       type: "POST",
+                       data: {
+                           keyword: null,
+                       },
+                       success: function (result) {
+
+                           if (!result.Success) {
+
+                               alert_danger(result.Message);
+                               return;
+                           }
+
+                           //2，把值赋给listType[]
+                           self.listType = result.Content;
+                           
+                           //3，把listtype 循环展示出来
+
+                       }
+
+                   })
+               },
+               specifiName() {
+                   let _this = this;
+                   AjaxPost({
+                       url: "/People/List",
+                       type: "POST",
+                       data: {
+                           keyword: _this.info.Workerid,
+                       },
+                       success: function (result) {
+
+                           if (!result.Success) {
+
+                               alert_danger(result.Message);
+                               return;
+                           }
+                           //1.获取人员信息
+                           //2，把值赋给peopleInfo{}
+                           self.peopleInfo = result.Content;
+                           console.log(self.peopleInfo);
+                           //3.根据使用人信息绑定工号和使用部门
+                           _this.info.User = self.peopleInfo[0].Name;
+                           _this.info.Dep1 = self.peopleInfo[0].Dep2;
+                           _this.info.Dep2 = self.peopleInfo[0].Dep3;
+                       }
+
+                   })
+               },
+
+               handleChange(file, fileList) {
+                   this.fileTemp = file.raw
+                   this.doBegin()
+               },
+               doBegin() {
+                   if ((this.fileTemp.type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') || (this.fileTemp.type == 'application/vnd.ms-excel')) {
+                       this.disbtn = true
+                       this.importfData(this.fileTemp)
+                   }
+                   else {
+                       this.$message({
+                           type: 'warning',
+                           message: '附件格式错误，请删除后重新上传！'
+                       })
+                   }
+               },
+               // Excel 转化
+               importfData(obj) {
+                   let _this = this
+                   // 通过DOM取文件数据
+                   this.file = obj
+                   var rABS = false // 是否将文件读取为二进制字符串
+                   var f = this.file
+                   var reader = new FileReader()
+                   // if (!FileReader.prototype.readAsBinaryString) {
+                   FileReader.prototype.readAsBinaryString = function (f) {
+                       var binary = ''
+                       var rABS = false // 是否将文件读取为二进制字符串
+                       var pt = this
+                       var wb // 读取完成的数据
+                       var outdata
+                       var reader = new FileReader()
+                       reader.onload = function (e) {
+                           var bytes = new Uint8Array(reader.result)
+                           var length = bytes.byteLength
+                           for (var i = 0; i < length; i++) {
+                               binary += String.fromCharCode(bytes[i])
+                           }
+                           var XLSX = require('xlsx')
+                           if (rABS) {
+                               wb = XLSX.read(btoa(fixdata(binary)), { // 手动转化
+                                   type: 'base64'
+                               })
+                           } else {
+                               wb = XLSX.read(binary, {
+                                   type: 'binary'
+                               })
+                           }
+                           outdata = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]])
+                           this.da = [...outdata]
+                           let arr = []
+                           this.da.map(v => {
+                               let obj = {}
+                               obj.User = v['User']
+                               obj.Workerid = v['Workerid']
+                               obj.Dep1 = v['Dep1']
+                               obj.Dep2 = v['Dep2']
+                               obj.Equipment_Numbers = v['Equipment_Numbers']
+                               obj.Name = v['Name']
+                               obj.Status = v['Status']
+                               obj.Size_Model = v['Size_Model']
+                               obj.Type = v['Type']
+                               obj.Inbound_Date = v['Inbound_Date']
+                               obj.Financial_Numbers = v['Financial_Numbers']
+                               obj.Computer_Name = v['Computer_Name']
+                               obj.physical_Address = v['physical_Address']
+                               obj.Location = v['Location']
+                               obj.Add_Domain = v['Add_Domain']
+                               obj.Outside_Network = v['Outside_Network']
+                               obj.Equipment_Detailed = v['Equipment_Detailed']
+                               obj.Remarks = v['Remarks']
+                               obj.Createtime = v['Createtime']                               
+                               arr.push(obj)
+                               _this.importList = [...arr]
+                               _this.disbtn = false
+                           })
+                           // const info =JSON.stringify(_this.importList)
+                           // console.log('info',info)
+                           ApiModuleList.ImportModuleInfo(_this.importList).then(response => {
+                               const resp = response.data;
+                               if (resp.status === 'success') {
+                                   console.log(this.$message)
+                                   _this.$message({
+                                       message: '导入成功',
+                                       type: 'success'
+                                   });
+                                   this.SearchModuleInfo();
+                               }
+                               else {
+                                   _this.$message({
+                                       message: resp.message,
+                                       type: 'warning'
+                                   })
+                               }
+                           })
+
+                       }
+                       reader.readAsArrayBuffer(f)
+                   }
+                   if (rABS) {
+                       reader.readAsArrayBuffer(f)
+                   }
+                   else {
+                       reader.readAsBinaryString(f)
+                   }
+               }
+           }
        });
+
+
     </script>
 
 }

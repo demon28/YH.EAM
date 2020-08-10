@@ -30,6 +30,22 @@ namespace YH.EAM.DataAccess.CodeGenerator
         [Column(IsIdentity = true, IsPrimary = true)]
         public int Id { get; set; }
         ///<summary>
+        ///描述：使用人
+        ///</summary>
+        public string User { get; set; }
+        ///<summary>
+        ///描述：工号
+        ///</summary>
+        public string Workerid { get; set; }
+        ///<summary>
+        ///描述：一级部门
+        ///</summary>
+        public string Dep1 { get; set; }
+        ///<summary>
+        ///描述：使用部门
+        ///</summary>
+        public string Dep2 { get; set; }
+        ///<summary>
         ///描述：设备编号
         ///</summary>
         public string Equipment_Numbers { get; set; }
@@ -89,7 +105,6 @@ namespace YH.EAM.DataAccess.CodeGenerator
         ///描述：创建时间
         ///</summary>
         public DateTime Createtime { get; set; }
-
     }
  }
 

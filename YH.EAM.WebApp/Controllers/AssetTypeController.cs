@@ -35,11 +35,12 @@ namespace YH.EAM.WebApp.Controllers
 
             TEAM_Type_Da da = new TEAM_Type_Da();
             var list = da.ListByWhere(keyword, ref page);
+            if(page.PageIndex==0)
+            { 
+                return SuccessResultList(list);
+            }
             return SuccessResultList(list, page);
         }
-
-
-
 
         [Right(PowerName = "添加")]
         [HttpPost]

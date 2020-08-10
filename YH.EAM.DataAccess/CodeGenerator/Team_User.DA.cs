@@ -25,25 +25,31 @@ namespace YH.EAM.DataAccess.CodeGenerator
         }
 
 
-        public List<Team_User> ListByWhere(string keyword, ref PageModel page) {
+        public List<Team_User> ListByWhere(string keyword, ref PageModel page) 
+        {
 
             var data =this.Select;
-
+            List<Team_User> list;
             if(!string.IsNullOrEmpty(keyword))
             {
                 data= data.Where(s => s.Name.Contains(keyword) || s.Workid.Contains(keyword) );
             }
-
-            page.TotalCount = data.Count().ToInt();
-          
-
-            var list = data.Page(page.PageIndex, page.PageSize)
-                .OrderBy(s => s.Comedate)
+            if (page.PageIndex == 0)
+            {
+                 list = data.OrderBy(s => s.Comedate)
                 .ToList();
 
+            }
+            else
+            { 
+                page.TotalCount = data.Count().ToInt();
+                list = data.Page(page.PageIndex, page.PageSize)
+                .OrderBy(s => s.Comedate)
+                .ToList();
+            }
+           
             return list;
         }
-
 
     }
 

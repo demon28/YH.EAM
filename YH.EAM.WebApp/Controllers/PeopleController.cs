@@ -36,12 +36,14 @@ namespace YH.EAM.WebApp.Controllers
 
             Team_User_Da da = new Team_User_Da();
             var list = da.ListByWhere(keyword, ref page);
-
+            if(page.PageIndex==0)
+            { 
+                return SuccessResultList(list);
+            }
 
             return SuccessResultList(list,page);
         }
-
-
+        
         [Right(PowerName = "设置用户角色")]
         [HttpPost]
         public IActionResult GetAllRole()
