@@ -36,7 +36,7 @@ namespace  YH.EAM.DataAccess.CodeGenerator
 
             if(!string.IsNullOrEmpty(keyword))
             {
-              //  data= data.Where(s => s.Name.Contains(keyword) || s.Workid.Contains(keyword) );
+                data= data.Where(s => s.User.Contains(keyword)||s.Workerid.Contains(keyword)||s.Dep1.Contains(keyword)||s.Dep2.Contains(keyword)||s.Equipment_Numbers.Contains(keyword)|| s.Status.Contains(keyword)||s.Name.Contains(keyword)||s.Computer_Name.Contains(keyword));
             }
 
             page.TotalCount = data.Count().ToInt();

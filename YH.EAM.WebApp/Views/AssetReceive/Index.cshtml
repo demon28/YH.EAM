@@ -8,12 +8,12 @@ Near
 
 @section Pageheader{
     <h1>
-        <small> 资产列表</small>
+        <small> 领用登记</small>
 
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-        <li class="active">资产列表</li>
+        <li class="active">领用界面</li>
     </ol>
 
 }
@@ -32,42 +32,13 @@ Near
                     <div class="box-tools">
 
                         <div class="input-group input-group-sm hidden-xs  pull-right" style="width: 200px; margin-left:5px">
-                            <input type="text" name="table_search" class="form-control pull-right" v-on:keyup.enter="Search()"  placeholder="Search" id="txt_Search" v-model="keywork" />
+                            <input type="text" name="table_search" class="form-control pull-left" v-on:keyup.enter="Search()" placeholder="Search" id="txt_Search" v-model="keywork" />
 
                             <div class="input-group-btn">
-                                <button type="button" class="btn btn-default "  v-on:click="Search()" id="btn_Search"><i class="fa fa-search"></i></button>
+                                <button type="button" class="btn btn-default " v-on:click="Search()" id="btn_Search"><i class="fa fa-search"></i></button>
                             </div>
 
-                        </div>
-
-                        <div class="input-group input-group-sm  col-md-1 pull-right ml-1" style="margin-left:10px;">
-                            <button type="button" class="btn btn-default pull-right" v-on:click="Print()" id="btn_Print">批量标签打印</button>
-                        </div>
-
-                        @*<div class="input-group input-group-sm  col-md-1 pull-right ml-1" style="margin-left:10px;">
-                            <button type="button" class="btn btn-default pull-right" v-on:click="Remove()" id="btn_Remove">批量删除</button>
-                        </div>*@
-
-                        <div class="input-group input-group-sm  col-md-1 pull-right ml-1" style="margin-left:10px;">
-                            <button type="button" class="btn btn-default pull-right" v-on:click="Output()" id="btn_Output">导出</button>
-                        </div>                        
-
-                        <el-upload style="float:right;  width:52px;height:32px"
-                                   class="upload-demo "
-                                   action="/AssetMessage/Upload"
-                                   :file-list="fileList"
-                                   accept=".xls,.xlsx"
-                                   :show-file-list="false"
-                                   :on-success="onImportSuccess"
-                                   :auto-upload="true">
-                            <el-button :loading="disbtn" type="button" class="btn btn-default" style="margin-left:4px;">导入 
-                            </el-button>
-
-                        </el-upload>
-
-                        <div class="input-group input-group-sm  col-md-1 pull-right ml-1" style="margin-left:10px;">
-                            <button type="button" class="btn btn-default pull-right" v-on:click="ShowAdd()" id="btn_Search">添加</button>
-                        </div>
+                        </div>                   
                     </div>
                 </div>
                 <!-- /.box-header -->
@@ -127,29 +98,15 @@ Near
                                 <td> {{item.Equipment_Detailed}}</td>
                                 <td> {{item.Remarks}}</td>
                                 <td> {{item.Createtime}}</td>
-
+                              
                                 <td style="text-align:right">
-
-                                    <button type="button" class="btn bg-purple  btn-xs" v-on:click="ShowUpdate(item)">修改</button>
-                                    @*&nbsp;      &nbsp;
-                                    <button type="button" class="btn bg-red btn-xs" v-on:click="Del(item)">删除</button>*@
-                                    &nbsp;      &nbsp;
-                                    <button type="button" class="btn bg-green  btn-xs" v-on:click="ShowReceive(item)">领用登记</button>
-                                    &nbsp;      &nbsp;
-                                    <button type="button" class="btn bg-green btn-xs" v-on:click="ShowBrrow(item)">借用登记</button>
-                                    &nbsp;      &nbsp;
-                                    <button type="button" class="btn bg-green btn-xs" v-on:click="ShowChange(item)">变更登记</button>
-                                    &nbsp;      &nbsp;
-                                    <button type="button" class="btn bg-green  btn-xs" v-on:click="ShowBack(item)">归还登记</button>
-                                    &nbsp;      &nbsp;
-                                    <button type="button" class="btn bg-green btn-xs" v-on:click="Print(item)">标签打印</button>
+                                    <button type="button" class="btn bg-green  btn-xs"  v-on:click="ShowReceive(item)">领用登记</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <!-- /.box-body -->
-
 
                 <div class="box-footer no-padding">
                     <div class="card-footer clearfix pull-left" style="margin-left:20px;margin-top:30px;margin-bottom:30px">
@@ -181,19 +138,19 @@ Near
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="txt_username"> 资产列表</h4>
+                    <h4 class="modal-title" id="txt_username"> 领用界面</h4>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal">
 
 
                         @*<div class="form-group">
-                   <label for="txt_projectname" class="col-sm-3 control-label">Id：</label>
+                               <label for="txt_projectname" class="col-sm-3 control-label">Id：</label>
 
-                   <div class="col-sm-7">
-                       <input type="text" class="form-control" v-model="info.Id">
-                   </div>
-                </div>*@
+                               <div class="col-sm-7">
+                                   <input type="text" class="form-control" v-model="info.Id">
+                               </div>
+                            </div>*@
 
                         <div class="form-group">
                             <label for="txt_projectname" class="col-sm-3 control-label">工号：</label>
@@ -229,21 +186,21 @@ Near
                             <label for="txt_projectname" class="col-sm-3 control-label">设备编号：</label>
 
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" v-model="info.Equipment_Numbers">
+                                <input type="text" class="form-control" v-model="info.Equipment_Numbers"  :disabled="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="txt_projectname" class="col-sm-3 control-label">资产名称：</label>
 
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" v-model="info.Name">
+                                <input type="text" class="form-control" v-model="info.Name" :disabled="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="txt_projectname" class="col-sm-3 control-label">状态：</label>
 
                             <div class="col-sm-7">
-                                <select v-model="info.Status" class="form-control" style="width:320px">
+                                <select v-model="info.Status" :disabled="true" class="form-control" style="width:320px">
                                     <option value="">请选择</option>
                                     <option>入库</option>
                                     <option>领用</option>
@@ -258,44 +215,44 @@ Near
                             <label for="txt_projectname" class="col-sm-3 control-label">规格型号：</label>
 
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" v-model="info.Size_Model">
+                                <input type="text" class="form-control" v-model="info.Size_Model" :disabled="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="txt_projectname" class="col-sm-3 control-label">资产类型：</label>
 
                             <div class="col-sm-7">
-                                <select v-model="info.Type" class="form-control" style="width:320px">
-                                    <option v-for="item in listType" v-bind:value="item.Type">{{ item.Type }}</option>
+                                <select v-model="info.Type" :disabled="true" class="form-control" style="width:320px">
+                                    <option v-for="item in listType" v-bind:value="item.Type" >{{ item.Type }}</option>
                                 </select>
                             </div>
                         </div>
                         @*<div class="form-group">
-                   <label for="txt_projectname" class="col-sm-3 control-label">Inbound_Date：</label>
+                               <label for="txt_projectname" class="col-sm-3 control-label">Inbound_Date：</label>
 
-                   <div class="col-sm-7">
-                       <input type="text" class="form-control" v-model="info.Inbound_Date">
-                   </div>
-                </div>*@
+                               <div class="col-sm-7">
+                                   <input type="text" class="form-control" v-model="info.Inbound_Date">
+                               </div>
+                            </div>*@
                         <div class="form-group">
                             <label for="txt_projectname" class="col-sm-3 control-label">财务编号：</label>
 
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" v-model="info.Financial_Numbers">
+                                <input type="text" class="form-control" v-model="info.Financial_Numbers" :disabled="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="txt_projectname" class="col-sm-3 control-label">计算机名：</label>
 
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" v-model="info.Computer_Name">
+                                <input type="text" class="form-control" v-model="info.Computer_Name" :disabled="true">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="txt_projectname" class="col-sm-3 control-label">物理地址：</label>
 
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" v-model="info.Physical_Address">
+                                <input type="text" class="form-control" v-model="info.Physical_Address" :disabled="true">
                             </div>
                         </div>
                         <div class="form-group">
@@ -327,23 +284,20 @@ Near
                             <label for="txt_projectname" class="col-sm-3 control-label">设备详情：</label>
 
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" v-model="info.Equipment_Detailed">
+                                <input type="text" class="form-control" v-model="info.Equipment_Detailed" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="txt_projectname" class="col-sm-3 control-label">备注：</label>
 
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" v-model="info.Remarks">
+                                <input type="text" class="form-control" v-model="info.Remarks" >
                             </div>
-                        </div>
+                        </div>                    
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary pull-right" v-on:click="Add()" v-if="operation=='add'">添 加</button>
-                    <button type="button" class="btn btn-primary pull-right" v-on:click="Update()" v-if="operation=='update'">修 改</button>
-                    <button type="button" class="btn btn-primary pull-right" v-on:click="Update()" v-if="operation=='receive'">保存</button>
-
+                    <button type="button" class="btn btn-primary pull-right" v-on:click="Update()" v-if="operation=='receive'">确 定</button>                    
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">关 闭</button>
                 </div>
             </div>
@@ -351,6 +305,9 @@ Near
         </div>
     </div>
 </section>
+
+
+
 
 @section scripts{
 
@@ -361,21 +318,17 @@ Near
            el: "#tab",
            data: {
                list: [],
-               listType: [],
-               fileListUpload: [],
-               fileList: [],
+               listType: [],               
                disbtn: false,
                pageModel: {
                     pageIndex: 1,
                     pageSize: 20,
                     TotalCount: 0,
                     ToTalPage: 0,
-                },
-               operation: "add",
-               info: {},
-               peopleInfo: {},
-               keywork: "",
-               newData: {},
+               },   
+               operation: "receive",
+               info: {},             
+               keywork: ""               
            },
            created: function () {
                self=this;
@@ -388,25 +341,21 @@ Near
 
            },
            methods: {
-               Init(index) {                  
+
+               Init(index) {              
                    AjaxPost({
                        url: "/AssetMessage/List",
                        type: "POST",
                        data: {
                             pageIndex: index,
                             pageSize: self.pageModel.pageSize,
-                            keyword: self.keywork,
+                           keyword: "入库"
                        },
-                       success: function (result) {
-
-                       // console.log(JSON.stringify(result));
-
+                       success: function (result) {                     
                            if (!result.Success) {
-
                                alert_danger(result.Message);
                                return;
-                           }
-                          
+                           }                          
                             self.list = result.Content;
 
                             self.pageModel.pageIndex = result.PageIndex;
@@ -416,86 +365,25 @@ Near
                        }
                    })
                },
-               Del: function (item) {
-                   bootbox.confirm("您确定删除该记录吗？", function (res) {
-                       if (res) {
-
-                           AjaxPost({
-                               url: "/AssetMessage/Del",
-                               type: "POST",
-                               data: {
-                                   id: item.Id
-                               },
-                               success: function (result) {
-
-                                   if (!result.Success) {
-
-                                       alert_danger(result.Message);
-                                       return;
-                                   }
-                                   alert_success("删除成功");
-                                   self.Init(self.pageModel.pageIndex);
-
-                               }
-                           })
-                       }
-                   });
-               },
-               Add: function () {
-                   AjaxPost({
-                       url: "/AssetMessage/Add",
-                       type: "POST",
-                       data: self.info,
-                       success: function (result) {
-
-                           if (!result.Success) {
-
-                               alert_danger(result.Message);
-                               return;
-                           }
-                           $('#modal-default').modal('hide');
-                           alert_success(result.Message);
-                            self.Init(self.pageModel.pageIndex);
-                       }
-                   })
-               },
                Update: function () {
                    AjaxPost({
                        url: "/AssetMessage/Update",
                        type: "POST",
                        data: self.info,
                        success: function (result) {
+
                            if (!result.Success) {
+
                                alert_danger(result.Message);
                                return;
                            }
                            $('#modal-default').modal('hide');
                            alert_success(result.Message);
                            self.Init(self.pageModel.pageIndex);
+
                        }
                    })
-               },              
-               Output: function () {
-                   AjaxPost({
-                       url: "/AssetMessage/Output",
-                       type: "POST",
-                       data: {},
-                       success: function (result) {
 
-                           if (!result.Success) {
-
-                               alert_danger(result.Message);
-                               return;
-                           }
-                           $('#modal-default').modal('hide');
-                           alert_success(result.Message);
-                       }
-                   })
-               },
-               ShowUpdate: function (item) {
-                   this.operation = "update";
-                   $('#modal-default').modal('show');
-                   this.info = item;
                },
                ShowReceive: function (item) {
                    this.operation = "receive";
@@ -507,18 +395,34 @@ Near
                    else {
                        $('#modal-default').modal('show');
                        item.Status = "领用";
-                       this.info = item;                       
-                   }                   
-               },
-               ShowAdd() {
-                   this.operation = "add";
-                   this.info = {};
-                   $('#modal-default').modal('show');
+                       this.info = item;
+                   }
                },
                Search: function () {
-                    self.Init(1);
+                   AjaxPost({
+                       url: "/AssetMessage/List",
+                       type: "POST",
+                       data: {
+                           pageIndex: 1,
+                           pageSize: self.pageModel.pageSize,
+                           keyword: self.keywork
+                       },
+                       success: function (result) {
+                           if (!result.Success) {
+                               alert_danger(result.Message);
+                               return;
+                           }
+                           self.list = result.Content;
+
+                           self.pageModel.pageIndex = result.PageIndex;
+                           self.pageModel.pageSize = result.PageSize;
+                           self.pageModel.TotalCount = result.TotalCount;
+                           self.pageModel.ToTalPage = result.ToTalPage;
+                       }
+                   })
                },
-               EnterKeyup() {                 
+               EnterKeyup() {
+                 
                     document.onkeypress = function (e) {
                         var keycode = document.all ? event.keyCode : e.which;
 
@@ -561,7 +465,9 @@ Near
                            keyword: _this.info.Workerid,
                        },
                        success: function (result) {
+
                            if (!result.Success) {
+
                                alert_danger(result.Message);
                                return;
                            }
@@ -574,17 +480,13 @@ Near
                            _this.info.Dep1 = self.peopleInfo[0].Dep2;
                            _this.info.Dep2 = self.peopleInfo[0].Dep3;
                        }
+
                    })
-               },
-               onImportSuccess(response, file, fileList) {                  
-                   if (response.Success) {
-                       alert_success("导入成功");
-                       this.Init(1);
-                       return;
-                   }
-                   alert_danger("导入失败");
-               }
+               }          
            }
        });
+
+
     </script>
+
 }

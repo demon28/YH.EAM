@@ -639,7 +639,7 @@
     <PackageReference Include="EPPlus" Version="5.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.6" />
-    <PackageReference Include="WeihanLi.Npoi" Version="1.9.4" />
+    <PackageReference Include="WeihanLi.Npoi" Version="1.9.6" />
   </ItemGroup>
 
   <ItemGroup>
@@ -1434,6 +1434,14 @@
     <ProjectReference Include="..\YH.EAM.DataAccess\YH.EAM.DataAccess.csproj" />
     <ProjectReference Include="..\YH.EAM.Entity\YH.EAM.Entity.csproj" />
     <ProjectReference Include="..\YH.EAM.Facade\YH.EAM.Facade.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\" />
+    <Folder Include="Views\AssetReceive\" />
+    <Folder Include="Views\AssetBorrow\" />
+    <Folder Include="wwwroot\FileUpload\Exort\2246\" />
+    <Folder Include="wwwroot\lib\util\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

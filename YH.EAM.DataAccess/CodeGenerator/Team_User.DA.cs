@@ -27,7 +27,6 @@ namespace YH.EAM.DataAccess.CodeGenerator
 
         public List<Team_User> ListByWhere(string keyword, ref PageModel page) 
         {
-
             var data =this.Select;
             List<Team_User> list;
             if(!string.IsNullOrEmpty(keyword))
